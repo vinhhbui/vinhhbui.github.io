@@ -3,173 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bùi Quang Vinh - AI/ML Engineer</title>
+    <title>BÙI QUANG VINH - AI/ML Engineer</title>
     <style>
         :root {
-            --primary-color: #0056b3;
-            --text-main: #333333;
-            --text-muted: #6c757d;
-            --bg-body: #f4f7f6;
-            --bg-card: #ffffff;
-            --border-color: #e9ecef;
+            --bg-main: #ffffff;
+            --text-primary: #1a202c;
+            --text-secondary: #4a5568;
+            --accent: #2b6cb0; /* Tech Blue */
+            --accent-light: #ebf8ff;
+            --border: #e2e8f0;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: 'Courier New', Courier, monospace;
         }
 
         body {
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
             line-height: 1.6;
             margin: 0;
-            padding: 40px 20px;
+            padding: 50px 20px;
+            /* Light Blueprint Dot Grid */
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 24px 24px;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
-            background-color: var(--bg-card);
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            padding: 50px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            position: relative;
         }
 
+        /* Futuristic Corner Accents */
+        .container::before, .container::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
+            pointer-events: none;
+        }
+        .container::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
+        .container::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+
         header {
-            text-align: center;
-            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 50px;
+            border-bottom: 2px dashed var(--border);
             padding-bottom: 30px;
-            margin-bottom: 30px;
         }
 
         h1 {
-            color: var(--primary-color);
-            font-size: 2.8em;
-            margin: 0 0 10px 0;
-            letter-spacing: -0.5px;
+            font-family: var(--font-sans);
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin: 0;
+            color: var(--text-primary);
         }
 
-        .subtitle {
-            font-size: 1.4em;
-            color: var(--text-muted);
-            font-weight: 500;
-            margin-bottom: 20px;
+        .role {
+            font-family: var(--font-mono);
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 5px;
         }
 
-        .contact-info {
+        .contact {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px 25px;
-            font-size: 0.95em;
-            color: var(--text-muted);
+            gap: 15px;
+            margin-top: 20px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
         }
 
-        .contact-info span {
-            display: flex;
-            align-items: center;
+        .contact span {
+            background: var(--bg-main);
+            border: 1px solid var(--border);
+            padding: 4px 10px;
+        }
+
+        .section {
+            margin-bottom: 40px;
         }
 
         h2 {
-            color: var(--primary-color);
-            font-size: 1.5em;
-            margin-top: 40px;
-            margin-bottom: 20px;
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-primary);
             display: flex;
             align-items: center;
+            margin-bottom: 20px;
         }
 
-        h2::after {
-            content: "";
-            flex: 1;
-            margin-left: 15px;
-            height: 1px;
-            background-color: var(--border-color);
+        h2::before {
+            content: '>>';
+            color: var(--accent);
+            margin-right: 10px;
         }
 
         .card {
-            background: #fafbfc;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px 25px;
-            margin-bottom: 20px;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            background: var(--bg-main);
+            transition: all 0.2s ease;
         }
 
         .card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+            border-color: var(--accent);
+            box-shadow: 4px 4px 0 var(--accent-light);
+            transform: translate(-2px, -2px);
         }
 
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 10px;
+        .title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 0 0 5px 0;
+            color: var(--text-primary);
         }
 
-        .card-title {
-            font-size: 1.2em;
+        .meta {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 15px;
             font-weight: bold;
-            color: var(--text-main);
-            margin: 0;
         }
 
-        .card-subtitle {
-            color: var(--text-muted);
-            font-weight: 500;
-            font-size: 0.95em;
-        }
-
-        .card-date {
-            font-size: 0.9em;
-            color: var(--primary-color);
-            font-weight: 500;
+        p, ul {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-top: 0;
         }
 
         ul {
-            margin: 0;
             padding-left: 20px;
-            color: #555;
         }
 
         li {
             margin-bottom: 8px;
         }
 
-        p {
-            color: #555;
-            text-align: justify;
-        }
-
-        .skills-container {
+        .skills-grid {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
         }
 
-        .skill-badge {
-            background-color: #e9ecef;
-            color: #495057;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            font-weight: 500;
-            border: 1px solid transparent;
+        .tag {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--accent);
+            background: var(--accent-light);
+            border: 1px solid rgba(43, 108, 176, 0.2);
+            padding: 6px 12px;
+            font-weight: bold;
         }
-
-        .skill-badge:hover {
-            background-color: var(--primary-color);
+        
+        .tag:hover {
+            background: var(--accent);
             color: white;
         }
 
-        .lang-section {
-            margin-top: 15px;
-            font-weight: 500;
-            color: var(--text-main);
-        }
-
-        @media (max-width: 768px) {
-            .container { padding: 30px 20px; }
-            .card-header { flex-direction: column; }
-            .card-date { margin-top: 5px; }
+        @media (max-width: 600px) {
+            .container { padding: 20px; }
+            h1 { font-size: 2rem; }
         }
     </style>
 </head>
@@ -178,114 +185,91 @@
 <div class="container">
     <header>
         <h1>BÙI QUANG VINH</h1>
-        <div class="subtitle">AI/ML ENGINEER</div>
-        <div class="contact-info">
-
-
-                <span>GitHub: vinhhbui</span>
-                <span>LinkedIn: Vinh Bui</span>
-                <span>buiquangvinh.work@gmail.com</span>
+        <div class="role"> AI/ML ENGINEER</div>
+        <div class="contact">
+            <span>MAIL: buiquangvinh.work@gmail.com</span>
+            <span>GITHUB: vinhhbui</span>
+            <span>LINKEDIN: Vinh Bui</span>
         </div>
     </header>
 
-    <section>
-        <h2>Profile</h2>
-        <p>As a third-year Computer Science student and active Al researcher at TDTU's URLab specializing in drones and robotics, I have a strong technical foundation and a deep passion for building interactive web applications and integrating Al with physical systems. I aim to create an engaging learning environment that simplifies complex coding concepts and inspires the next generation of innovators to build their own creative digital projects.</p>
-    </section>
+    <div class="section">
+        <h2>System Target</h2>
+        <p>As a third-year Computer Science student and active Al researcher at TDTU's URLab specializing in drones and robotics. I have a strong technical foundation and a deep passion for building interactive web applications and integrating Al with physical systems. I aim to create an engaging learning environment that simplifies complex coding concepts and inspires the next generation of innovators to build their own creative digital projects.</p>
+    </div>
 
-    <section>
-        <h2>Education</h2>
+    <div class="section">
+        <h2>Education Log</h2>
         <div class="card">
-            <div class="card-header">
-                <div class="card-title">Ton Duc Thang University</div>
-                <div class="card-date">2023 - Present (Graduate 2027)</div>
-            </div>
-            <div class="card-subtitle" style="margin-bottom: 10px;">Bachelor of Science in Computer Science</div>
+            <h3 class="title">Ton Duc Thang University</h3>
+            <div class="meta">Bachelor of Science in Computer Science | 2023 - Present (Graduate 2027)</div>
         </div>
-
         <div class="card">
-            <div class="card-header">
-                <div class="card-title">Chinese Culture University (Taipei City)</div>
-                <div class="card-date">Jul 2025 - Aug 2025</div>
-            </div>
-            <div class="card-subtitle" style="margin-bottom: 10px;">International Summer Camp 2025, Computer Vision</div>
+            <h3 class="title">Chinese Culture University (Taipei City)</h3>
+            <div class="meta">International Summer Camp 2025, Computer Vision | Jul 2025 - Aug 2025</div>
             <ul>
-                <li>Participate in course "Computer Vision" (36 hours). Be chosen to report in English for the course's output.</li>
+                <li>Participate in course "Computer Vision" (36 hours). Be chosen to report in english for the course's output.</li>
                 <li>Experience implementing 2D, 3D games and realtime AR book project with Unity and Vuforia.</li>
             </ul>
         </div>
-    </section>
+    </div>
 
-    <section>
-        <h2>Core Projects</h2>
+    <div class="section">
+        <h2>Deployed Projects</h2>
         <div class="card">
-            <div class="card-title" style="margin-bottom: 10px;">Rip Current Detection System For Coastal Rescue Operations</div>
+            <h3 class="title">RIP CURRENT DETECTION SYSTEM FOR COASTAL RESCUE OPERATIONS</h3>
             <ul>
                 <li>Developed a real-time computer vision system using Python, PyTorch, YOLO, and OpenCV to automatically detect and localize hazardous rip currents from aerial drone footage.</li>
                 <li>Built to tackle a critical coastal safety challenge by providing lifeguards with an automated, early-warning Al tool that identifies dangerous ocean currents invisible from the shoreline, ultimately helping to prevent drownings.</li>
-                <li><strong>Key Features:</strong> Trained and optimized deep learning models for high-speed edge inference (running directly on drone systems or local devices), overcoming complex environmental variables like water reflections and weather changes.</li>
+                <li>Key Features: Trained and optimized deep learning models for high-speed edge inference (running directly on drone systems or local devices), overcoming complex environmental variables like water reflections and weather changes.</li>
             </ul>
         </div>
-
         <div class="card">
-            <div class="card-title" style="margin-bottom: 10px;">Traffic Sign Detection YOLO</div>
+            <h3 class="title">TRAFFIC SIGN DETECTION YOLO</h3>
             <ul>
                 <li>Developed a real-time computer vision system using Python, YOLOv11, and OpenCV to automatically detect and classify road traffic signs from video and run real time with camera.</li>
                 <li>Built to explore the core mechanics of autonomous driving assistants, aiming to enhance road safety through automated visual recognition.</li>
-                <li><strong>Key Features:</strong> Trained lightweight Al models optimized for fast processing, demonstrating how complex machine learning algorithms can be applied to build practical, real-world applications.</li>
+                <li>Key Features: Trained lightweight Al models optimized for fast processing, demonstrating how complex machine learning algorithms can be applied to build practical, real-world applications.</li>
             </ul>
         </div>
-
         <div class="card">
-            <div class="card-header">
-                <div class="card-title">Vinpearl Can Gio Hotel Management Platform</div>
-                <div class="card-subtitle">Full-stack Developer</div>
-            </div>
+            <h3 class="title">VINPEARL CAN GIO HOTEL MANAGEMENT WEB-BASED PLATFORM</h3>
+            <div class="meta">Full-stack developer</div>
             <ul>
                 <li>Developed a full-stack web application using PHP, MySQL, HTML/CSS, and JavaScript to automate and digitize core hospitality workflows.</li>
-                <li>Built to solve practical operational challenges by providing a seamless online booking interface for customers and a secure, centralized dashboard for staff.</li>
-                <li><strong>Key Features:</strong> Implemented real-time database updates to prevent overbooking and strict role-based access control to ensure secure data management.</li>
+                <li>Key Features: Implemented real-time database updates to prevent overbooking and strict role-based access control to ensure secure data management.</li>
             </ul>
         </div>
-    </section>
+    </div>
 
-    <section>
-        <h2>Skills & Expertise</h2>
-        <div class="skills-container">
-            <span class="skill-badge">HTML/CSS</span>
-            <span class="skill-badge">JavaScript</span>
-            <span class="skill-badge">PHP</span>
-            <span class="skill-badge">Next.js</span>
-            <span class="skill-badge">Firebase</span>
-            <span class="skill-badge">Python</span>
-            <span class="skill-badge">Object Detection (YOLO)</span>
-            <span class="skill-badge">Deep Learning (CNN, LSTM, Transformer)</span>
-            <span class="skill-badge">Edge AI Deployment</span>
-            <span class="skill-badge">Drone System Integration</span>
-            <span class="skill-badge">Git/GitHub</span>
-            <span class="skill-badge">Ubuntu</span>
+    <div class="section">
+        <h2>Tech Stack & Skills</h2>
+        <div class="skills-grid">
+            <span class="tag">ENG: IELTS 6.5</span>
+            <span class="tag">CHN: HSK 2</span>
+            <span class="tag">HTML/CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">PHP</span>
+            <span class="tag">Next.js</span>
+            <span class="tag">Python</span>
+            <span class="tag">YOLO/CNN/LSTM</span>
+            <span class="tag">Edge AI</span>
+            <span class="tag">Drone Integration</span>
+            <span class="tag">Ubuntu</span>
         </div>
-        
-        <div class="lang-section">
-            <p><strong>Languages:</strong> English (IELTS: 6.5) &nbsp;|&nbsp; Chinese (HSK 2)</p>
-            <p><strong>Soft Skills:</strong> Leadership & Team Communication, Adaptability, Mentorship, Engaging Presentation.</p>
-        </div>
-    </section>
-
-    <section>
+    </div>
+    
+    <div class="section">
         <h2>Honors & Awards</h2>
         <div class="card">
-            <div class="card-header">
-                <div class="card-title">Third Prize - Tech Startup Challenger 2025</div>
-                <div class="card-date">May 2025</div>
-            </div>
-            <div class="card-subtitle" style="margin-bottom: 10px;">Full-stack Developer, co-leader</div>
+            <h3 class="title">THIRD PRIZE - TECH STARTUP CHALLENGER 2025</h3>
+            <div class="meta">Full-stack Developer, co-leader | May 2025</div>
             <ul>
-                <li>Built the <em>MatesUp</em> - Startup Connection Platform, designed to connect aspiring entrepreneurs, allowing them to share and collaborate on startup ideas.</li>
+                <li>Built the MatesUp - Startup Connection Platform, designed to connect aspiring entrepreneurs, allowing them to share and collaborate on startup ideas.</li>
                 <li>Conceptualized and pitched a web-based platform using HTML5/CSS as front end with PHP as back-end.</li>
             </ul>
         </div>
-    </section>
+    </div>
 </div>
 
 </body>
