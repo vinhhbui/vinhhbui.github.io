@@ -1,277 +1,680 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BÙI QUANG VINH - AI/ML Engineer</title>
-    <style>
-        :root {
-            --bg-main: #ffffff;
-            --text-primary: #1a202c;
-            --text-secondary: #4a5568;
-            --accent: #2b6cb0; /* Tech Blue */
-            --accent-light: #ebf8ff;
-            --border: #e2e8f0;
-            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            --font-mono: 'Courier New', Courier, monospace;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bùi Quang Vinh — AI/ML Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #060912;
+      --surface: #0d1321;
+      --surface2: #111827;
+      --border: rgba(56, 189, 248, 0.12);
+      --cyan: #38bdf8;
+      --cyan-dim: rgba(56, 189, 248, 0.6);
+      --green: #4ade80;
+      --amber: #fbbf24;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --muted2: #94a3b8;
+      --radius: 12px;
+    }
 
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-primary);
-            font-family: var(--font-sans);
-            line-height: 1.6;
-            margin: 0;
-            padding: 50px 20px;
-            /* Light Blueprint Dot Grid */
-            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
-            background-size: 24px 24px;
-        }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border: 1px solid var(--border);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-            position: relative;
-        }
+    html { scroll-behavior: smooth; }
 
-        /* Futuristic Corner Accents */
-        .container::before, .container::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--accent);
-            pointer-events: none;
-        }
-        .container::before { top: -2px; left: -2px; border-right: none; border-bottom: none; }
-        .container::after { bottom: -2px; right: -2px; border-left: none; border-top: none; }
+    body {
+      font-family: 'DM Mono', monospace;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
 
-        header {
-            margin-bottom: 50px;
-            border-bottom: 2px dashed var(--border);
-            padding-bottom: 30px;
-        }
+    /* GRID BG */
+    .grid-bg {
+      position: fixed; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(56,189,248,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56,189,248,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+    .glow-orb {
+      position: fixed; border-radius: 50%;
+      filter: blur(120px); pointer-events: none; z-index: 0;
+    }
+    .orb-1 { width: 600px; height: 600px; background: rgba(56,189,248,0.05); top: -200px; right: -150px; }
+    .orb-2 { width: 500px; height: 500px; background: rgba(74,222,128,0.04); bottom: -100px; left: -100px; }
 
-        h1 {
-            font-family: var(--font-sans);
-            font-size: 2.5rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin: 0;
-            color: var(--text-primary);
-        }
+    /* LAYOUT */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
 
-        .role {
-            font-family: var(--font-mono);
-            color: var(--accent);
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-top: 5px;
-        }
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 18px 0;
+      background: rgba(6,9,18,0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .inner { max-width: 1100px; margin: 0 auto; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; letter-spacing: 0.04em; }
+    .nav-logo span { color: var(--cyan); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--cyan); }
 
-        .contact {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 20px;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
+    /* HERO */
+    .hero { min-height: 100vh; display: flex; align-items: center; padding: 100px 0 60px; }
+    .hero-inner { display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: center; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 24px;
+      padding: 6px 12px; border: 1px solid var(--border);
+      border-radius: 999px; background: rgba(56,189,248,0.05);
+    }
+    .hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse-dot 2s infinite; }
+    @keyframes pulse-dot { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+    .hero h1 {
+      font-family: 'Syne', sans-serif; font-size: clamp(2.8rem, 5vw, 4.2rem);
+      font-weight: 800; line-height: 1.05; margin-bottom: 8px;
+      opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+    }
+    .hero h1 em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--cyan); }
+    .hero-subtitle {
+      font-size: 0.85rem; color: var(--muted2); margin-bottom: 32px; line-height: 1.8;
+      max-width: 520px;
+      opacity: 0; animation: fadeUp 0.8s 0.4s forwards;
+    }
+    .hero-actions {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.8s 0.6s forwards;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 22px; border-radius: 8px; font-family: 'DM Mono', monospace;
+      font-size: 0.78rem; letter-spacing: 0.05em; text-decoration: none;
+      transition: all 0.2s; cursor: none;
+    }
+    .btn-primary {
+      background: var(--cyan); color: #060912; font-weight: 500;
+    }
+    .btn-primary:hover { background: #7dd3fc; transform: translateY(-2px); }
+    .btn-outline {
+      border: 1px solid var(--border); color: var(--muted2);
+      background: rgba(255,255,255,0.02);
+    }
+    .btn-outline:hover { border-color: var(--cyan-dim); color: var(--cyan); transform: translateY(-2px); }
 
-        .contact span {
-            background: var(--bg-main);
-            border: 1px solid var(--border);
-            padding: 4px 10px;
-        }
+    .hero-photo {
+      width: 200px; height: 200px; border-radius: 50%;
+      border: 2px solid var(--border);
+      background: var(--surface2);
+      overflow: hidden; position: relative;
+      box-shadow: 0 0 60px rgba(56,189,248,0.1);
+      opacity: 0; animation: fadeIn 1s 0.3s forwards;
+      flex-shrink: 0;
+    }
+    .hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-photo-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif; font-size: 3rem; font-weight: 800;
+      color: var(--cyan-dim);
+    }
 
-        .section {
-            margin-bottom: 40px;
-        }
+    /* SECTION STYLES */
+    section { padding: 90px 0; }
+    .section-label {
+      font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 14px; display: flex; align-items: center; gap: 10px;
+    }
+    .section-label::before { content: ''; width: 24px; height: 1px; background: var(--cyan); }
+    .section-title {
+      font-family: 'Syne', sans-serif; font-size: clamp(1.7rem, 3vw, 2.4rem);
+      font-weight: 700; margin-bottom: 48px; line-height: 1.2;
+    }
 
-        h2 {
-            font-family: var(--font-mono);
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    .about-text { color: var(--muted2); font-size: 0.85rem; line-height: 1.9; }
+    .about-text p + p { margin-top: 16px; }
+    .info-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .info-list li { display: flex; gap: 12px; align-items: flex-start; font-size: 0.78rem; }
+    .info-list .key { color: var(--muted); min-width: 80px; flex-shrink: 0; }
+    .info-list .val { color: var(--text); }
+    .info-list a { color: var(--cyan); text-decoration: none; }
+    .info-list a:hover { text-decoration: underline; }
 
-        h2::before {
-            content: '>>';
-            color: var(--accent);
-            margin-right: 10px;
-        }
+    /* SKILLS */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .skill-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .skill-card:hover { border-color: var(--cyan-dim); transform: translateY(-4px); }
+    .skill-card-icon { font-size: 1.4rem; margin-bottom: 14px; }
+    .skill-card h3 { font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; margin-bottom: 12px; letter-spacing: 0.04em; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-size: 0.65rem; padding: 3px 9px; border-radius: 999px;
+      background: rgba(56,189,248,0.07); border: 1px solid rgba(56,189,248,0.15);
+      color: var(--cyan-dim); letter-spacing: 0.04em;
+    }
 
-        .card {
-            margin-bottom: 30px;
-            padding: 20px;
-            border: 1px solid var(--border);
-            background: var(--bg-main);
-            transition: all 0.2s ease;
-        }
+    /* PROJECTS */
+    .projects-grid { display: grid; gap: 24px; }
+    .project-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 32px;
+      display: grid; grid-template-columns: 1fr auto;
+      gap: 20px; align-items: start;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .project-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan-dim), transparent);
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .project-card:hover::before { opacity: 1; }
+    .project-card:hover { border-color: rgba(56,189,248,0.25); box-shadow: 0 20px 60px rgba(0,0,0,0.4); transform: translateY(-4px); }
+    .project-num { font-size: 0.65rem; color: var(--muted); margin-bottom: 10px; letter-spacing: 0.1em; }
+    .project-title { font-family: 'Syne', sans-serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 6px; }
+    .project-role { font-size: 0.7rem; color: var(--cyan-dim); margin-bottom: 14px; letter-spacing: 0.08em; text-transform: uppercase; }
+    .project-desc { font-size: 0.8rem; color: var(--muted2); line-height: 1.8; margin-bottom: 18px; }
+    .project-tech { display: flex; flex-wrap: wrap; gap: 6px; }
+    .project-links { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+    .icon-link {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.7rem; color: var(--muted2); text-decoration: none;
+      padding: 7px 12px; border: 1px solid var(--border); border-radius: 8px;
+      transition: all 0.2s; white-space: nowrap; cursor: none;
+    }
+    .icon-link:hover { color: var(--cyan); border-color: var(--cyan-dim); }
+    .badge-prize {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.25);
+      color: var(--amber); font-size: 0.65rem; padding: 4px 10px; border-radius: 999px;
+      letter-spacing: 0.06em; margin-bottom: 10px;
+    }
 
-        .card:hover {
-            border-color: var(--accent);
-            box-shadow: 4px 4px 0 var(--accent-light);
-            transform: translate(-2px, -2px);
-        }
+    /* EDUCATION */
+    .edu-list { display: flex; flex-direction: column; gap: 24px; }
+    .edu-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 28px 32px;
+      display: grid; grid-template-columns: 1fr auto; gap: 16px;
+      align-items: start; transition: border-color 0.2s;
+    }
+    .edu-card:hover { border-color: var(--cyan-dim); }
+    .edu-school { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
+    .edu-degree { font-size: 0.78rem; color: var(--muted2); margin-bottom: 10px; }
+    .edu-details { font-size: 0.75rem; color: var(--muted2); line-height: 1.8; }
+    .edu-details li { list-style: none; padding-left: 14px; position: relative; }
+    .edu-details li::before { content: '—'; position: absolute; left: 0; color: var(--cyan-dim); }
+    .edu-date {
+      font-size: 0.7rem; color: var(--cyan-dim); letter-spacing: 0.06em;
+      white-space: nowrap; padding-top: 3px;
+    }
+    .gpa {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.72rem; color: var(--green);
+      background: rgba(74,222,128,0.07); border: 1px solid rgba(74,222,128,0.2);
+      padding: 3px 10px; border-radius: 999px;
+    }
 
-        .title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin: 0 0 5px 0;
-            color: var(--text-primary);
-        }
+    /* CONTACT */
+    .contact-inner {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 16px; padding: 52px; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .contact-inner::after {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(56,189,248,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .contact-inner h2 { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 12px; }
+    .contact-inner p { font-size: 0.82rem; color: var(--muted2); margin-bottom: 36px; line-height: 1.8; }
+    .contact-links { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
 
-        .meta {
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            color: var(--accent);
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border); padding: 28px 0;
+      text-align: center; font-size: 0.7rem; color: var(--muted); letter-spacing: 0.06em;
+    }
 
-        p, ul {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            margin-top: 0;
-        }
+    /* DIVIDER */
+    .divider { height: 1px; background: var(--border); margin: 0; }
 
-        ul {
-            padding-left: 20px;
-        }
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
 
-        li {
-            margin-bottom: 8px;
-        }
+    /* SCROLLBAR */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: rgba(56,189,248,0.25); border-radius: 999px; }
 
-        .skills-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .tag {
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            color: var(--accent);
-            background: var(--accent-light);
-            border: 1px solid rgba(43, 108, 176, 0.2);
-            padding: 6px 12px;
-            font-weight: bold;
-        }
-        
-        .tag:hover {
-            background: var(--accent);
-            color: white;
-        }
-
-        @media (max-width: 600px) {
-            .container { padding: 20px; }
-            h1 { font-size: 2rem; }
-        }
-    </style>
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+      .hero-photo { width: 140px; height: 140px; margin: 0 auto; }
+      .hero-actions { justify-content: center; }
+      .about-grid { grid-template-columns: 1fr; }
+      .project-card { grid-template-columns: 1fr; }
+      .project-links { flex-direction: row; align-items: flex-start; }
+      .edu-card { grid-template-columns: 1fr; }
+      nav .inner { padding: 0 20px; }
+      .nav-links { gap: 20px; }
+      .container { padding: 0 20px; }
+      .contact-inner { padding: 36px 24px; }
+    }
+  </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>BÙI QUANG VINH</h1>
-        <div class="role"> AI/ML ENGINEER</div>
-        <div class="contact">
-            <span>MAIL: buiquangvinh.work@gmail.com</span>
-        </div>
-        <div class="contact">
-            <a href="https://github.com/vinhhbui" target="_blank">GITHUB: vinhhbui</a>
-            <a href="https://www.linkedin.com/in/vinhh-bui/" target="_blank">LINKEDIN: Vinh Bui</a>
+  <div class="grid-bg"></div>
+  <div class="glow-orb orb-1"></div>
+  <div class="glow-orb orb-2"></div>
 
-        </div>
-    </header>
-
-    <div class="section">
-        <h2>System Target</h2>
-        <p>As a third-year Computer Science student and active Al researcher at TDTU's URLab specializing in drones and robotics. I have a strong technical foundation and a deep passion for building interactive web applications and integrating Al with physical systems. I aim to create an engaging learning environment that simplifies complex coding concepts and inspires the next generation of innovators to build their own creative digital projects.</p>
+  <!-- NAV -->
+  <nav>
+    <div class="inner">
+      <div class="nav-logo">VB<span>.</span></div>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </div>
+  </nav>
 
-    <div class="section">
-        <h2>Education Log</h2>
-        <div class="card">
-            <h3 class="title">Ton Duc Thang University</h3>
-            <div class="meta">Bachelor of Science in Computer Science | 2023 - Present (Graduate 2027)</div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-inner">
+        <div>
+          <div class="hero-tag">Available for opportunities</div>
+          <h1>Bùi Quang Vinh</h1>
+          <p class="hero-subtitle">
+            AI/ML Engineer & Computer Vision researcher at TDTU's URLAB.<br>
+            Building intelligent systems that bridge code, cameras, and the real world.
+          </p>
+          <div class="hero-actions">
+            <a href="https://www.linkedin.com/in/vinhh-bui/" target="_blank" class="btn btn-primary">↗ Connect on LinkedIn</a>
+            <a href="https://github.com/vinhhbui" target="_blank" class="btn btn-outline">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/vinhh-bui/" target="_blank" class="btn btn-outline">LinkedIn</a>
+          </div>
         </div>
-        <div class="card">
-            <h3 class="title">Chinese Culture University (Taipei City)</h3>
-            <div class="meta">International Summer Camp 2025, Computer Vision | Jul 2025 - Aug 2025</div>
-            <ul>
-                <li>Participate in course "Computer Vision" (36 hours). Be chosen to report in english for the course's output.</li>
-                <li>Experience implementing 2D, 3D games and realtime AR book project with Unity and Vuforia.</li>
-            </ul>
+        <div class="hero-photo">
+          <div class="hero-photo-placeholder">VB</div>
         </div>
+      </div>
     </div>
+  </section>
 
-    <div class="section">
-        <h2>Deployed Projects</h2>
-        <div class="card">
-            <h3 class="title">RIP CURRENT DETECTION SYSTEM FOR COASTAL RESCUE OPERATIONS</h3>
-            <ul>
-                <li>Developed a real-time computer vision system using Python, PyTorch, YOLO, and OpenCV to automatically detect and localize hazardous rip currents from aerial drone footage.</li>
-                <li>Built to tackle a critical coastal safety challenge by providing lifeguards with an automated, early-warning Al tool that identifies dangerous ocean currents invisible from the shoreline, ultimately helping to prevent drownings.</li>
-                <li>Key Features: Trained and optimized deep learning models for high-speed edge inference (running directly on drone systems or local devices), overcoming complex environmental variables like water reflections and weather changes.</li>
-            </ul>
+  <div class="divider"></div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="section-label">01 — About</div>
+      <h2 class="section-title">Who I am</h2>
+      <div class="about-grid reveal">
+        <div class="about-text">
+          <p>
+            I'm a third-year Computer Science student at Ton Duc Thang University and an active AI researcher at the URLAB lab, where I specialise in drone systems and computer vision for real-world applications.
+          </p>
+          <p>
+            My work sits at the intersection of deep learning and physical systems — from training lightweight YOLO models that run on edge hardware to building full-stack web platforms used in real operations. I'm driven by the challenge of making AI practical and deployable, not just academically interesting.
+          </p>
+          <p>
+            When I'm not training models or building APIs, I'm competing in startup challenges, attending international computer vision programmes, or exploring how autonomous systems can make everyday life safer.
+          </p>
         </div>
-        <div class="card">
-            <h3 class="title">TRAFFIC SIGN DETECTION YOLO</h3>
-            <ul>
-                <li>Developed a real-time computer vision system using Python, YOLOv11, and OpenCV to automatically detect and classify road traffic signs from video and run real time with camera.</li>
-                <li>Built to explore the core mechanics of autonomous driving assistants, aiming to enhance road safety through automated visual recognition.</li>
-                <li>Key Features: Trained lightweight Al models optimized for fast processing, demonstrating how complex machine learning algorithms can be applied to build practical, real-world applications.</li>
-            </ul>
-        </div>
-        <div class="card">
-            <h3 class="title">VINPEARL CAN GIO HOTEL MANAGEMENT WEB-BASED PLATFORM</h3>
-            <div class="meta">Full-stack developer</div>
-            <ul>
-                <li>Developed a full-stack web application using PHP, MySQL, HTML/CSS, and JavaScript to automate and digitize core hospitality workflows.</li>
-                <li>Key Features: Implemented real-time database updates to prevent overbooking and strict role-based access control to ensure secure data management.</li>
-            </ul>
-        </div>
+        <ul class="info-list">
+          <li><span class="key">University</span><span class="val">Ton Duc Thang University</span></li>
+          <li><span class="key">GPA</span><span class="val">8.1 / 10</span></li>
+          <li><span class="key">GitHub</span><span class="val"><a href="https://github.com/vinhhbui" target="_blank">github.com/vinhhbui</a></span></li>
+          <li><span class="key">LinkedIn</span><span class="val"><a href="https://www.linkedin.com/in/vinhh-bui/" target="_blank">Vinh Bui</a></span></li>
+          <li><span class="key">English</span><span class="val">IELTS 6.5</span></li>
+          <li><span class="key">Chinese</span><span class="val">HSK 2</span></li>
+        </ul>
+      </div>
     </div>
+  </section>
 
-    <div class="section">
-        <h2>Tech Stack & Skills</h2>
-        <div class="skills-grid">
+  <div class="divider"></div>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-label">02 — Skills</div>
+      <h2 class="section-title">Technical toolkit</h2>
+      <div class="skills-grid reveal">
+        <div class="skill-card">
+          <div class="skill-card-icon">🤖</div>
+          <h3>AI & Computer Vision</h3>
+          <div class="skill-tags">
+            <span class="tag">Python</span>
+            <span class="tag">YOLO</span>
+            <span class="tag">PyTorch</span>
+            <span class="tag">OpenCV</span>
+            <span class="tag">CNN</span>
+            <span class="tag">LSTM</span>
+            <span class="tag">Transformer</span>
+            <span class="tag">Edge AI</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-icon">🌐</div>
+          <h3>Web Development</h3>
+          <div class="skill-tags">
             <span class="tag">HTML/CSS</span>
             <span class="tag">JavaScript</span>
             <span class="tag">PHP</span>
             <span class="tag">Next.js</span>
-            <span class="tag">Python</span>
-            <span class="tag">YOLO/CNN/LSTM</span>
-            <span class="tag">Edge AI</span>
-            <span class="tag">Drone Integration</span>
+            <span class="tag">Tailwind CSS</span>
+            <span class="tag">Firebase</span>
+            <span class="tag">MySQL</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-icon">🚁</div>
+          <h3>Hardware & Robotics</h3>
+          <div class="skill-tags">
+            <span class="tag">Drone Systems</span>
+            <span class="tag">Edge Deployment</span>
+            <span class="tag">Unity</span>
+            <span class="tag">Vuforia AR</span>
+            <span class="tag">C#</span>
+          </div>
+        </div>
+        <div class="skill-card">
+          <div class="skill-card-icon">🛠️</div>
+          <h3>Tools & Environment</h3>
+          <div class="skill-tags">
+            <span class="tag">Git / GitHub</span>
             <span class="tag">Ubuntu</span>
+            <span class="tag">Jupyter</span>
+            <span class="tag">scikit-learn</span>
+            <span class="tag">TensorFlow</span>
+            <span class="tag">MS Office</span>
+          </div>
         </div>
+      </div>
     </div>
-    
-    <div class="section">
-        <h2>Honors & Awards</h2>
-        <div class="card">
-            <h3 class="title">THIRD PRIZE - TECH STARTUP CHALLENGER 2025</h3>
-            <div class="meta">Full-stack Developer, co-leader | May 2025</div>
-            <ul>
-                <li>Built the MatesUp - Startup Connection Platform, designed to connect aspiring entrepreneurs, allowing them to share and collaborate on startup ideas.</li>
-                <li>Conceptualized and pitched a web-based platform using HTML5/CSS as front end with PHP as back-end.</li>
-            </ul>
-        </div>
-    </div>
-</div>
+  </section>
 
+  <div class="divider"></div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-label">03 — Projects</div>
+      <h2 class="section-title">What I've built</h2>
+      <div class="projects-grid">
+
+        <!-- Rip Current -->
+        <div class="project-card reveal">
+          <div>
+            <div class="project-num">PROJECT 01</div>
+            <div class="project-title">Rip Current Detection System</div>
+            <div class="project-role">Lead Developer — Coastal Rescue AI</div>
+            <p class="project-desc">
+              Real-time computer vision system that autonomously detects and localises hazardous rip currents from aerial drone footage. Provides lifeguards with an automated early-warning tool that identifies ocean currents invisible from the shoreline — helping prevent drownings before they happen.
+              <br><br>
+              Trained and optimised deep learning models for high-speed edge inference directly on drone hardware, overcoming complex environmental variables like water reflections and shifting weather conditions.
+            </p>
+            <div class="project-tech">
+              <span class="tag">Python</span>
+              <span class="tag">PyTorch</span>
+              <span class="tag">YOLOv11</span>
+              <span class="tag">OpenCV</span>
+              <span class="tag">Edge AI</span>
+              <span class="tag">Drone Systems</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/vinhhbui" target="_blank" class="icon-link">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- Traffic Sign -->
+        <div class="project-card reveal">
+          <div>
+            <div class="project-num">PROJECT 02</div>
+            <div class="project-title">Traffic Sign Detection (YOLO)</div>
+            <div class="project-role">Developer — Autonomous Driving Assistant</div>
+            <p class="project-desc">
+              Real-time computer vision system that automatically detects and classifies road traffic signs from live video and camera feeds. Built to explore the core mechanics of autonomous driving assistants and enhance road safety through automated visual recognition.
+              <br><br>
+              Trained lightweight YOLOv11 models optimised for fast processing, demonstrating how complex ML algorithms can deliver real-world, practical applications.
+            </p>
+            <div class="project-tech">
+              <span class="tag">Python</span>
+              <span class="tag">YOLOv11</span>
+              <span class="tag">OpenCV</span>
+              <span class="tag">Real-time CV</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/vinhhbui" target="_blank" class="icon-link">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- Vinpearl -->
+        <div class="project-card reveal">
+          <div>
+            <div class="project-num">PROJECT 03</div>
+            <div class="project-title">Vinpearl Can Gio — Hotel Management Platform</div>
+            <div class="project-role">Full-Stack Developer</div>
+            <p class="project-desc">
+              Full-stack web application that automates and digitises core hospitality workflows for a hotel property. Provides a seamless online booking interface for customers alongside a secure, centralised management dashboard for staff.
+              <br><br>
+              Implemented real-time database updates to prevent overbooking and strict role-based access control to ensure secure data management across all staff tiers.
+            </p>
+            <div class="project-tech">
+              <span class="tag">PHP</span>
+              <span class="tag">MySQL</span>
+              <span class="tag">HTML/CSS</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">Full-Stack</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/vinhhbui" target="_blank" class="icon-link">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- FaceFeel -->
+        <div class="project-card reveal">
+          <div>
+            <div class="project-num">PROJECT 04</div>
+            <div class="project-title">FaceFeel — Emotion-Based Music Recommender</div>
+            <div class="project-role">Developer — AI Web App</div>
+            <p class="project-desc">
+              Real-time web application that reads your facial expressions through your webcam using AI and suggests music tracks to match your mood — bringing a new, interactive way to discover music. Combines computer vision with an engaging front-end experience.
+            </p>
+            <div class="project-tech">
+              <span class="tag">JavaScript</span>
+              <span class="tag">Computer Vision</span>
+              <span class="tag">Face Detection</span>
+              <span class="tag">Web App</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/vinhhbui/FaceFeel" target="_blank" class="icon-link">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- MatesUp -->
+        <div class="project-card reveal">
+          <div>
+            <div class="badge-prize">🥉 Third Prize — Tech Startup Challenger 2025</div>
+            <div class="project-num">PROJECT 05</div>
+            <div class="project-title">MatesUp — Startup Connection Platform</div>
+            <div class="project-role">Full-Stack Developer & Co-Leader</div>
+            <p class="project-desc">
+              Award-winning startup platform designed to connect aspiring entrepreneurs and allow them to share and collaborate on startup ideas. Conceptualised, built, and pitched at the Tech Startup Challenger 2025 competition, earning Third Prize.
+            </p>
+            <div class="project-tech">
+              <span class="tag">HTML5/CSS</span>
+              <span class="tag">PHP</span>
+              <span class="tag">Full-Stack</span>
+              <span class="tag">Startup</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/vinhhbui" target="_blank" class="icon-link">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <!-- Pacman A* -->
+        <div class="project-card reveal">
+          <div>
+            <div class="project-num">PROJECT 06</div>
+            <div class="project-title">Pacman A* Pathfinding</div>
+            <div class="project-role">Developer — AI Game Agent</div>
+            <p class="project-desc">
+              Pacman game where the player agent automatically finds the optimal path to eat all food in a maze using the A* search algorithm. Demonstrates classical AI search strategy applied in an interactive, visual game environment built with Pygame.
+            </p>
+            <div class="project-tech">
+              <span class="tag">Python</span>
+              <span class="tag">Pygame</span>
+              <span class="tag">A* Algorithm</span>
+              <span class="tag">AI Search</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/vinhhbui/PacmanAstar" target="_blank" class="icon-link">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="container">
+      <div class="section-label">04 — Education</div>
+      <h2 class="section-title">Academic background</h2>
+      <div class="edu-list">
+
+        <div class="edu-card reveal">
+          <div>
+            <div class="edu-school">Ton Duc Thang University</div>
+            <div class="edu-degree">Bachelor of Science in Computer Science</div>
+            <ul class="edu-details">
+              <li><span class="gpa">GPA 8.1 / 10 &nbsp;(3.24 / 4.0)</span></li>
+              <li style="margin-top:10px">Active AI researcher at URLAB — drones & robotics specialisation</li>
+              <li>Focus areas: Computer Vision, Deep Learning, Edge AI Deployment</li>
+            </ul>
+          </div>
+          <div class="edu-date">2023 – 2027</div>
+        </div>
+
+        <div class="edu-card reveal">
+          <div>
+            <div class="edu-school">Chinese Culture University — Taipei City</div>
+            <div class="edu-degree">International Summer Camp 2025 · Computer Vision</div>
+            <ul class="edu-details">
+              <li>Completed 36-hour Computer Vision course; selected to present final project in English</li>
+              <li>Built 2D & 3D games and a realtime AR book project using Unity + Vuforia</li>
+            </ul>
+          </div>
+          <div class="edu-date">Jul – Aug 2025</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-inner reveal">
+        <div class="section-label" style="justify-content:center">05 — Contact</div>
+        <h2>Let's build something together</h2>
+        <p>
+          I'm open to internships, research collaborations, and full-time opportunities.<br>
+          Reach out via LinkedIn or explore my work on GitHub.
+        </p>
+        <div class="contact-links">
+          <a href="https://github.com/vinhhbui" target="_blank" class="btn btn-primary">↗ GitHub — vinhhbui</a>
+          <a href="https://www.linkedin.com/in/vinhh-bui/" target="_blank" class="btn btn-outline">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      © 2025 Bùi Quang Vinh &nbsp;·&nbsp; AI/ML Engineer &nbsp;·&nbsp; Ho Chi Minh City, Vietnam
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Active nav link
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.id; });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + current ? 'var(--cyan)' : '';
+      });
+    });
+  </script>
 </body>
 </html>
