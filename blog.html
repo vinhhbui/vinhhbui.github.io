@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Blog articles by Victor Bui on AI, computer vision, and product engineering." />
+  <title>Blog - Victor Bui</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #101215;
+      --surface: #1d2229;
+      --surface-strong: #252b34;
+      --text: #f4f7fb;
+      --muted: #a8b3c2;
+      --subtle: #748094;
+      --line: rgba(190, 203, 220, 0.16);
+      --brand: #4fd1c5;
+      --accent: #f2b84b;
+      --accent-2: #7aa2ff;
+      --radius: 8px;
+      --max: 920px;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
+    }
+
+    [data-theme="light"] {
+      color-scheme: light;
+      --bg: #f7f5ef;
+      --surface: #ffffff;
+      --surface-strong: #f3f0e8;
+      --text: #14181f;
+      --muted: #4d5968;
+      --subtle: #6f7885;
+      --line: rgba(25, 31, 42, 0.13);
+      --brand: #0f8f88;
+      --accent: #b7791f;
+      --accent-2: #315fbd;
+      --shadow: 0 22px 60px rgba(31, 35, 43, 0.13);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.7;
+    }
+
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    a {
+      color: inherit;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    :focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--accent) 72%, white);
+      outline-offset: 2px;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 50;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text);
+      font-weight: 800;
+      text-decoration: none;
+      transform: translateY(-160%);
+      transition: transform 0.2s ease;
+    }
+
+    .skip-link:focus-visible {
+      transform: translateY(0);
+    }
+
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 20;
+      width: 100%;
+      height: 3px;
+      background: transparent;
+      pointer-events: none;
+    }
+
+    .progress-bar span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--brand), var(--accent-2));
+      transition: width 0.1s linear;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand,
+    .nav-links,
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .brand {
+      gap: 10px;
+      font-weight: 850;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, var(--brand), var(--accent-2));
+      color: #071012;
+      font-size: 0.86rem;
+    }
+
+    .nav-links {
+      gap: 8px;
+    }
+
+    .nav-links a,
+    .theme-toggle {
+      min-height: 44px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text);
+      font-weight: 800;
+      text-decoration: none;
+      touch-action: manipulation;
+    }
+
+    .nav-links a {
+      padding: 0 14px;
+    }
+
+    .theme-toggle {
+      width: 42px;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .menu-toggle {
+      width: 44px;
+      min-height: 44px;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .theme-toggle svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .menu-toggle svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    header {
+      padding: 64px 0 30px;
+    }
+
+    .eyebrow {
+      margin-bottom: 12px;
+      color: var(--brand);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 840px;
+      margin-bottom: 18px;
+      font-size: clamp(2.2rem, 7vw, 4.8rem);
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .intro {
+      max-width: 720px;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .hero-image {
+      margin: 24px 0 0;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: clamp(260px, 42vw, 460px);
+      object-fit: cover;
+    }
+
+    .toc {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: 28px 0 10px;
+    }
+
+    .toc a {
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    .header-tools {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .search-input {
+      width: 100%;
+      min-height: 44px;
+      padding: 0 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text);
+      font: inherit;
+    }
+
+    .search-status {
+      margin: 10px 0 0;
+      color: var(--subtle);
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+
+    article {
+      scroll-margin-top: 96px;
+      margin: 56px 0;
+      padding: clamp(22px, 4vw, 36px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    article h2 {
+      margin-bottom: 8px;
+      font-size: clamp(1.7rem, 4vw, 2.6rem);
+      line-height: 1.08;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+      color: var(--subtle);
+      font-size: 0.88rem;
+      font-weight: 800;
+    }
+
+    article h3 {
+      margin: 28px 0 8px;
+      color: var(--accent);
+      font-size: 1.05rem;
+    }
+
+    article p {
+      color: var(--muted);
+    }
+
+    .quote {
+      margin: 24px 0;
+      padding: 18px;
+      border-left: 3px solid var(--brand);
+      border-radius: var(--radius);
+      background: var(--surface-strong);
+      color: var(--text);
+      font-weight: 750;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 24px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .tag-list li {
+      min-height: 28px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+      background: var(--surface-strong);
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    footer {
+      padding: 24px 0 36px;
+      border-top: 1px solid var(--line);
+      color: var(--subtle);
+      font-size: 0.9rem;
+      font-weight: 750;
+    }
+
+    .to-top {
+      position: fixed;
+      right: 20px;
+      bottom: calc(16px + env(safe-area-inset-bottom));
+      z-index: 18;
+      width: 50px;
+      height: 50px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--surface) 88%, transparent);
+      color: var(--text);
+      display: inline-grid;
+      place-items: center;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .to-top.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    @media (max-width: 760px) {
+      .container {
+        width: min(100% - 28px, var(--max));
+      }
+
+      .nav-inner {
+        min-height: 64px;
+      }
+
+      .brand span:last-child {
+        display: none;
+      }
+
+      .toc {
+        grid-template-columns: 1fr;
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+      }
+
+      .nav-links {
+        position: absolute;
+        left: 14px;
+        right: 14px;
+        top: 74px;
+        display: none;
+        flex-direction: column;
+        gap: 6px;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--surface);
+        box-shadow: var(--shadow);
+        max-height: min(72vh, 430px);
+        overflow-y: auto;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        width: 100%;
+        padding: 0 10px;
+      }
+
+      .header-tools {
+        grid-template-columns: 1fr;
+      }
+
+      header {
+        padding: 48px 0 24px;
+      }
+
+      article {
+        margin: 34px 0;
+        padding: 20px;
+      }
+
+      .to-top {
+        right: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        width: min(100% - 20px, var(--max));
+      }
+
+      .nav-inner {
+        min-height: 60px;
+      }
+
+      .nav-links {
+        left: 10px;
+        right: 10px;
+        top: 68px;
+      }
+
+      h1 {
+        font-size: clamp(1.9rem, 10vw, 2.55rem);
+      }
+
+      .intro {
+        font-size: 0.98rem;
+      }
+
+      .hero-image img {
+        height: 240px;
+      }
+
+      .toc a {
+        min-height: 52px;
+        font-size: 0.86rem;
+      }
+
+      .search-input {
+        min-height: 46px;
+      }
+
+      article h2 {
+        font-size: clamp(1.45rem, 6.4vw, 1.9rem);
+      }
+
+      .meta {
+        margin-bottom: 16px;
+        font-size: 0.8rem;
+      }
+
+      .quote {
+        margin: 18px 0;
+        padding: 14px;
+      }
+
+      .to-top {
+        width: 48px;
+        height: 48px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#mainContent">Skip to main content</a>
+  <div class="progress-bar" aria-hidden="true"><span id="readingProgress"></span></div>
+  <nav aria-label="Blog navigation">
+    <div class="container nav-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">VB</span>
+        <span>Victor Bui</span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="index.html#projects">Projects</a>
+        <a href="#rip-current">Articles</a>
+        <button class="theme-toggle" type="button" id="themeToggle" aria-label="Switch to light theme">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+            <path d="M12 3v2.5M12 18.5V21M4.3 4.3l1.8 1.8M17.9 17.9l1.8 1.8M3 12h2.5M18.5 12H21M4.3 19.7l1.8-1.8M17.9 6.1l1.8-1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/>
+          </svg>
+        </button>
+      </div>
+      <button class="menu-toggle" type="button" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false">
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <main id="mainContent">
+    <header>
+      <div class="container">
+        <div class="eyebrow">Blog archive</div>
+        <h1>Working notes from AI projects, school, and product experiments.</h1>
+        <p class="intro">This page turns the portfolio into a real blog surface: each article connects back to the projects and personal journey on the homepage.</p>
+        <figure class="hero-image">
+          <img src="assets/ai-blog-hero.png" alt="AI research workspace illustration with computer vision and drone elements." />
+        </figure>
+        <div class="toc" aria-label="Article list">
+          <a href="#rip-current">Rip current detection</a>
+          <a href="#yolo-experiments">YOLO experiments</a>
+          <a href="#ai-interfaces">AI product interfaces</a>
+          <a href="#learning-notes">Learning notes</a>
+        </div>
+        <div class="header-tools">
+          <input class="search-input" id="articleSearch" type="search" placeholder="Find an article by keyword (e.g. YOLO, workflow, interface)" aria-label="Search articles" />
+        </div>
+        <p class="search-status" id="searchStatus">Showing all articles.</p>
+      </div>
+    </header>
+
+    <div class="container">
+      <article id="rip-current" data-keywords="rip current drone rescue edge ai yolo computer vision">
+        <div class="eyebrow">Computer Vision</div>
+        <h2>Designing a rip current detection system for real rescue workflows</h2>
+        <div class="meta"><span>Field note</span><span>7 min read</span><span>Drone systems</span></div>
+        <p>Rip currents are dangerous because they can be hard to see from shore. The technical goal is not only to draw a box on video, but to create an early-warning system that helps lifeguards make decisions quickly.</p>
+        <p>My approach starts with the environment. Water reflections, moving waves, weather changes, and camera motion all create patterns that can confuse a model. That makes data quality and testing conditions just as important as architecture choice.</p>
+        <h3>What I optimize for</h3>
+        <p>I care about speed, stability, and clear output. A drone system has limited compute, so the model has to be lightweight enough for edge inference while still being reliable under messy coastal conditions.</p>
+        <div class="quote">The useful system is the one that works when the scene is imperfect, not only when the demo video is clean.</div>
+        <p>The next step is connecting model output to a human workflow: alert timing, location clarity, and confidence signals that are understandable during rescue operations.</p>
+        <ul class="tag-list"><li>YOLOv11</li><li>PyTorch</li><li>OpenCV</li><li>Edge AI</li><li>Drones</li></ul>
+      </article>
+
+      <article id="yolo-experiments" data-keywords="yolo dataset training augmentation model workflow">
+        <div class="eyebrow">Technical note</div>
+        <h2>How I approach YOLO experiments before training gets expensive</h2>
+        <div class="meta"><span>5 min read</span><span>Model workflow</span><span>Dataset quality</span></div>
+        <p>Before I train a YOLO model, I try to remove avoidable uncertainty. A few hours spent inspecting labels can save many failed training runs later.</p>
+        <h3>My checklist</h3>
+        <p>I check class balance, annotation consistency, image resolution, lighting variation, and whether the train/validation split represents the real deployment scene. If the validation set is too easy, the metrics become comforting but not useful.</p>
+        <p>I also prefer small baseline runs before large experiments. They reveal broken labels, over-aggressive augmentations, and bad assumptions about the data pipeline while the cost is still low.</p>
+        <div class="quote">Good experiments are not just faster. They make wrong assumptions visible earlier.</div>
+        <p>Only after that do I compare model sizes, augmentation strategies, and inference settings for the deployment target.</p>
+        <ul class="tag-list"><li>YOLO</li><li>Dataset review</li><li>Training</li><li>Computer Vision</li></ul>
+      </article>
+
+      <article id="ai-interfaces" data-keywords="product interface full stack dashboard ai ux web">
+        <div class="eyebrow">Reflection</div>
+        <h2>What full-stack projects taught me about AI product interfaces</h2>
+        <div class="meta"><span>4 min read</span><span>Web development</span><span>Product thinking</span></div>
+        <p>Building hotel management dashboards, startup platforms, and FaceFeel taught me that AI projects still depend on ordinary product details: loading states, permissions, error messages, and database design.</p>
+        <p>An accurate model can feel weak if the interface does not show what is happening. A simpler model can feel strong when the workflow is clear and users know what to do next.</p>
+        <h3>What changed in my thinking</h3>
+        <p>I now design AI features around the decision they support. For a recommender, that means feedback and context. For detection systems, that means timing, confidence, and visual clarity. For dashboards, that means the right people seeing the right data.</p>
+        <div class="quote">The interface is where machine learning becomes usable.</div>
+        <p>That is why I keep practicing both sides: model development and full-stack implementation.</p>
+        <ul class="tag-list"><li>JavaScript</li><li>PHP</li><li>MySQL</li><li>AI UX</li></ul>
+      </article>
+
+      <article id="learning-notes" data-keywords="learning notes experiment computer vision study workflow">
+        <div class="eyebrow">Learning log</div>
+        <h2>How I keep computer vision learning notes useful</h2>
+        <div class="meta"><span>6 min read</span><span>Study workflow</span><span>Computer Vision</span></div>
+        <p>Learning notes only help when they survive beyond the day they were written. For computer vision, I try to keep notes close to experiments, code snippets, failure cases, and visual examples.</p>
+        <p>My preferred format is simple: the idea, the setup, the result, what confused me, and what I would test next. That structure works for papers, model training logs, AR demos, and small prototypes.</p>
+        <h3>What makes a note reusable</h3>
+        <p>A reusable note has enough context that future me can restart the experiment without guessing. It includes dataset assumptions, library versions when they matter, screenshots or outputs, and one clear takeaway.</p>
+        <div class="quote">A good learning note is not a diary entry. It is a small bridge back into the problem.</div>
+        <p>This keeps the blog useful too: each post should capture a lesson that can guide the next build.</p>
+        <ul class="tag-list"><li>Computer Vision</li><li>Learning</li><li>Experiments</li><li>Writing</li></ul>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">© 2026 Victor Bui. Blog and portfolio.</div>
+  </footer>
+
+  <button class="to-top" type="button" id="toTopButton" aria-label="Back to top">
+    <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none">
+      <path d="m6 14 6-6 6 6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <script>
+    const root = document.documentElement;
+    const themeToggle = document.getElementById("themeToggle");
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+    const readingProgress = document.getElementById("readingProgress");
+    const toTopButton = document.getElementById("toTopButton");
+    const articleSearch = document.getElementById("articleSearch");
+    const searchStatus = document.getElementById("searchStatus");
+    const articles = [...document.querySelectorAll("main article[id]")];
+    const tocLinks = [...document.querySelectorAll(".toc a")];
+    const storedTheme = localStorage.getItem("theme");
+    const preferredTheme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+
+    function setMenuOpen(isOpen) {
+      navLinks.classList.toggle("open", isOpen);
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
+      document.body.classList.toggle("menu-open", isOpen);
+    }
+
+    function setTheme(theme) {
+      root.dataset.theme = theme;
+      localStorage.setItem("theme", theme);
+      themeToggle.setAttribute("aria-label", theme === "dark" ? "Switch to light theme" : "Switch to dark theme");
+    }
+
+    setTheme(storedTheme || preferredTheme);
+
+    themeToggle.addEventListener("click", () => {
+      setTheme(root.dataset.theme === "dark" ? "light" : "dark");
+    });
+
+    menuToggle.addEventListener("click", () => {
+      setMenuOpen(!navLinks.classList.contains("open"));
+    });
+
+    document.addEventListener("click", (event) => {
+      if (!navLinks.classList.contains("open")) return;
+      if (navLinks.contains(event.target) || menuToggle.contains(event.target)) return;
+
+      setMenuOpen(false);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      setMenuOpen(false);
+    });
+
+    function normalizeText(text) {
+      return text.toLowerCase().trim();
+    }
+
+    function filterArticles() {
+      const query = normalizeText(articleSearch.value);
+      let visibleCount = 0;
+
+      articles.forEach((article) => {
+        const text = normalizeText(`${article.dataset.keywords || ""} ${article.textContent || ""}`);
+        const isVisible = !query || text.includes(query);
+
+        article.hidden = !isVisible;
+        if (isVisible) visibleCount += 1;
+
+        const tocLink = tocLinks.find((link) => link.getAttribute("href") === `#${article.id}`);
+        if (tocLink) tocLink.hidden = !isVisible;
+      });
+
+      searchStatus.textContent = query
+        ? `${visibleCount} article${visibleCount === 1 ? "" : "s"} found for "${query}".`
+        : "Showing all articles.";
+    }
+
+    articleSearch.addEventListener("input", filterArticles);
+
+    function updateScrollUi() {
+      const maxScrollable = document.body.scrollHeight - window.innerHeight;
+      const progress = maxScrollable > 0 ? Math.min(100, (window.scrollY / maxScrollable) * 100) : 0;
+
+      readingProgress.style.width = `${progress}%`;
+      toTopButton.classList.toggle("show", window.scrollY > 360);
+    }
+
+    window.addEventListener("scroll", updateScrollUi, { passive: true });
+    window.addEventListener("resize", () => {
+      updateScrollUi();
+
+      if (window.innerWidth > 760 && navLinks.classList.contains("open")) {
+        setMenuOpen(false);
+      }
+    });
+
+    toTopButton.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    filterArticles();
+    updateScrollUi();
+  </script>
+</body>
+</html>
