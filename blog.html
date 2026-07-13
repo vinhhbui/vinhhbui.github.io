@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -525,120 +526,634 @@
         height: 48px;
       }
     }
+
+    /* Dedicated journal: warm, readable, and distinct from the portfolio */
+    html[data-theme="light"] {
+      color-scheme: light;
+      --bg: #faf9f5;
+      --surface: #efe9de;
+      --surface-strong: #e8e0d2;
+      --text: #141413;
+      --muted: #3d3d3a;
+      --subtle: #6c6a64;
+      --line: #e6dfd8;
+      --brand: #cc785c;
+      --brand-strong: #a9583e;
+      --accent: #cc785c;
+      --accent-2: #5db8a6;
+      --feature-bg: #181715;
+      --feature-text: #faf9f5;
+      --feature-muted: #d2cdc4;
+      --feature-inner: #252320;
+      --radius: 12px;
+      --max: 1200px;
+      --shadow: 0 1px 3px rgba(20, 20, 19, .08);
+    }
+
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #181715;
+      --surface: #252320;
+      --surface-strong: #302e29;
+      --text: #faf9f5;
+      --muted: #d2cdc4;
+      --subtle: #a09d96;
+      --line: #444039;
+      --brand: #df987d;
+      --brand-strong: #efaf94;
+      --accent: #df987d;
+      --accent-2: #72c7b6;
+      --feature-bg: #efe9de;
+      --feature-text: #141413;
+      --feature-muted: #3d3d3a;
+      --feature-inner: #e8e0d2;
+      --radius: 12px;
+      --max: 1200px;
+      --shadow: 0 1px 3px rgba(0, 0, 0, .28);
+    }
+
+    body {
+      background: var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    .site-nav {
+      min-height: 64px;
+      background: color-mix(in srgb, var(--bg) 94%, transparent);
+      border-color: var(--line);
+    }
+
+    .nav-inner {
+      min-height: 64px;
+    }
+
+    .brand {
+      font: 400 1.28rem/1 Georgia, "Times New Roman", serif;
+      letter-spacing: -.03em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .nav-links a,
+    .theme-toggle {
+      min-height: 40px;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      padding: 0 12px;
+      border-radius: 8px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+      background: var(--surface);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .journal-nav-button {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      border-radius: 8px;
+      background: var(--brand);
+      color: #fff;
+      font-size: .88rem;
+      font-weight: 600;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .journal-nav-button:hover,
+    .journal-nav-button.active {
+      background: var(--brand-strong);
+    }
+
+    .theme-toggle {
+      width: 40px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .theme-toggle .icon-sun,
+    .theme-toggle .icon-moon {
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    html[data-theme="light"] .theme-toggle .icon-sun,
+    html[data-theme="dark"] .theme-toggle .icon-moon {
+      display: none;
+    }
+
+    header {
+      padding: 96px 0 48px;
+    }
+
+    header .container,
+    main>.container {
+      width: min(1040px, calc(100% - 40px));
+    }
+
+    .eyebrow {
+      color: var(--brand);
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .13em;
+    }
+
+    h1,
+    article h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 400;
+      letter-spacing: -.045em;
+    }
+
+    h1 {
+      max-width: 900px;
+      font-size: clamp(3rem, 7vw, 5.6rem);
+      line-height: 1.01;
+    }
+
+    .intro {
+      max-width: 650px;
+      color: var(--muted);
+      font-size: 1.12rem;
+    }
+
+    .archive-switch {
+      width: max-content;
+      max-width: 100%;
+      display: flex;
+      gap: 6px;
+      margin: 26px 0 0;
+      padding: 5px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: var(--surface);
+    }
+
+    .archive-switch a,
+    .archive-switch span {
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 13px;
+      border-radius: 7px;
+      font-size: .84rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .archive-switch .active {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .archive-switch a {
+      color: var(--muted);
+    }
+
+    .hero-image {
+      margin-top: 42px;
+      border: 0;
+      border-radius: 16px;
+      box-shadow: none;
+    }
+
+    .hero-image img {
+      height: clamp(260px, 38vw, 430px);
+      filter: saturate(.75);
+    }
+
+    .toc {
+      gap: 8px;
+      margin: 28px 0 14px;
+    }
+
+    .toc a {
+      min-height: 50px;
+      border: 0;
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .toc a.active {
+      background: var(--brand);
+      color: #fff;
+    }
+
+    .toc a[hidden] {
+      display: none;
+    }
+
+    .search-input {
+      min-height: 42px;
+      border-color: var(--line);
+      border-radius: 8px;
+      background: var(--bg);
+    }
+
+    article {
+      margin: 40px 0;
+      padding: clamp(28px, 5vw, 52px);
+      border: 0;
+      border-radius: 12px;
+      background: var(--surface);
+    }
+
+    article[hidden] {
+      display: none;
+    }
+
+    article:first-child {
+      background: var(--feature-bg);
+      color: var(--feature-text);
+    }
+
+    article:first-child p,
+    article:first-child .meta {
+      color: var(--feature-muted);
+    }
+
+    article h2 {
+      font-size: clamp(2rem, 4.5vw, 3.35rem);
+      line-height: 1.08;
+    }
+
+    article h3 {
+      color: var(--brand);
+      font-weight: 600;
+    }
+
+    article p {
+      color: var(--muted);
+    }
+
+    .meta {
+      color: var(--subtle);
+      font-weight: 600;
+    }
+
+    .quote {
+      border-left-color: var(--brand);
+      border-radius: 0 8px 8px 0;
+      background: var(--surface-strong);
+      font-weight: 600;
+    }
+
+    article:first-child .quote {
+      background: var(--feature-inner);
+      color: var(--feature-text);
+    }
+
+    article:first-child .tag-list li {
+      background: var(--feature-inner);
+      color: var(--feature-muted);
+    }
+
+    .tag-list li {
+      border: 0;
+      background: var(--surface-strong);
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .related-record {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 20px;
+      color: var(--brand-strong);
+      font-size: .86rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    footer {
+      margin-top: 96px;
+      padding: 58px 0;
+      border: 0;
+      background: #181715;
+      color: #a09d96;
+    }
+
+    .to-top {
+      border-color: var(--line);
+      background: var(--bg);
+      color: var(--text);
+      box-shadow: var(--shadow);
+    }
+
+    @media (max-width:760px) {
+      .brand span:last-child {
+        display: inline;
+      }
+
+      .nav-links {
+        display: none;
+        background: var(--bg);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links li {
+        width: 100%;
+      }
+
+      header {
+        padding: 56px 0 34px;
+      }
+
+      header .container,
+      main>.container {
+        width: min(100% - 28px, 1040px);
+      }
+
+      h1 {
+        font-size: clamp(2.55rem, 10vw, 3.8rem);
+      }
+
+      .hero-image img {
+        height: 300px;
+      }
+
+      .toc {
+        grid-template-columns: 1fr;
+      }
+
+      article {
+        margin: 24px 0;
+        padding: 24px;
+      }
+
+      article h2 {
+        font-size: clamp(1.8rem, 7vw, 2.5rem);
+      }
+
+      footer {
+        margin-top: 72px;
+      }
+    }
+
+    @media (max-width:480px) {
+
+      .container,
+      header .container,
+      main>.container {
+        width: min(100% - 20px, var(--max));
+      }
+
+      .nav-inner {
+        gap: 8px;
+      }
+
+      .brand {
+        font-size: 1.08rem;
+      }
+
+      .nav-actions {
+        gap: 6px;
+      }
+
+      .journal-nav-button {
+        min-height: 38px;
+        padding: 0 11px;
+        font-size: .8rem;
+      }
+
+      .theme-toggle,
+      .menu-toggle {
+        width: 38px;
+        min-height: 38px;
+      }
+
+      h1 {
+        font-size: clamp(2.2rem, 11vw, 2.65rem);
+      }
+
+      .intro {
+        font-size: 1rem;
+      }
+
+      .hero-image img {
+        height: 220px;
+      }
+
+      article {
+        padding: 20px;
+      }
+
+      article h2 {
+        font-size: clamp(1.65rem, 8vw, 2rem);
+      }
+
+      .quote {
+        padding: 14px;
+      }
+
+      footer {
+        margin-top: 60px;
+      }
+    }
   </style>
 </head>
+
 <body>
   <a class="skip-link" href="#mainContent">Skip to main content</a>
   <div class="progress-bar" aria-hidden="true"><span id="readingProgress"></span></div>
-  <nav aria-label="Blog navigation">
+  <nav class="site-nav" aria-label="Primary navigation">
     <div class="container nav-inner">
-      <a class="brand" href="index.html">
-        <span class="brand-mark">VB</span>
+      <a class="brand" href="index.html" aria-label="Victor Bui home">
         <span>Victor Bui</span>
       </a>
-      <div class="nav-links" id="navLinks">
-        <a href="index.html">Home</a>
-        <a href="index.html#projects">Projects</a>
-        <a href="#rip-current">Articles</a>
-        <button class="theme-toggle" type="button" id="themeToggle" aria-label="Switch to light theme">
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a class="journal-nav-button active" href="#mainContent" aria-current="page">Journal</a>
+        <button class="theme-toggle" type="button" id="themeToggle" aria-label="Switch to dark theme">
+          <span class="icon-sun" aria-hidden="true">&#9728;</span>
+          <span class="icon-moon" aria-hidden="true">&#9790;</span>
+        </button>
+        <button class="menu-toggle" type="button" id="menuToggle" aria-label="Open navigation menu"
+          aria-expanded="false">
           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
-            <path d="M12 3v2.5M12 18.5V21M4.3 4.3l1.8 1.8M17.9 17.9l1.8 1.8M3 12h2.5M18.5 12H21M4.3 19.7l1.8-1.8M17.9 6.1l1.8-1.8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
-            <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
           </svg>
         </button>
       </div>
-      <button class="menu-toggle" type="button" id="menuToggle" aria-label="Open navigation menu" aria-expanded="false">
-        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
-          <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
-        </svg>
-      </button>
     </div>
   </nav>
 
   <main id="mainContent">
     <header>
       <div class="container">
-        <div class="eyebrow">Blog archive</div>
-        <h1>Working notes from AI projects, school, and product experiments.</h1>
-        <p class="intro">This page turns the portfolio into a real blog surface: each article connects back to the projects and personal journey on the homepage.</p>
+        <div class="eyebrow">Journal · Notes</div>
+        <h1>Working notes, separated from project records.</h1>
+        <p class="intro">This space contains technical notes, learning logs, and reflections. Structured case studies
+          live in the separate project archive.</p>
+        <div class="archive-switch" aria-label="Content areas"><span class="active" aria-current="page">Journal
+            notes</span><a href="projects.html">Project records</a></div>
         <figure class="hero-image">
-          <img src="assets/ai-blog-hero.png" alt="AI research workspace illustration with computer vision and drone elements." />
+          <img src="assets/ai-blog-hero.png"
+            alt="AI research workspace illustration with computer vision and drone elements." />
         </figure>
-        <div class="toc" aria-label="Article list">
-          <a href="#rip-current">Rip current detection</a>
-          <a href="#yolo-experiments">YOLO experiments</a>
-          <a href="#ai-interfaces">AI product interfaces</a>
-          <a href="#learning-notes">Learning notes</a>
+        <div class="toc" role="tablist" aria-label="Article list">
+          <a id="tab-rip-current" role="tab" href="#rip-current" aria-controls="rip-current">Rip current detection</a>
+          <a id="tab-yolo-experiments" role="tab" href="#yolo-experiments" aria-controls="yolo-experiments">YOLO
+            experiments</a>
+          <a id="tab-ai-interfaces" role="tab" href="#ai-interfaces" aria-controls="ai-interfaces">AI product
+            interfaces</a>
+          <a id="tab-learning-notes" role="tab" href="#learning-notes" aria-controls="learning-notes">Learning notes</a>
         </div>
         <div class="header-tools">
-          <input class="search-input" id="articleSearch" type="search" placeholder="Find an article by keyword (e.g. YOLO, workflow, interface)" aria-label="Search articles" />
+          <input class="search-input" id="articleSearch" type="search"
+            placeholder="Find an article by keyword (e.g. YOLO, workflow, interface)" aria-label="Search articles" />
         </div>
         <p class="search-status" id="searchStatus">Showing all articles.</p>
       </div>
     </header>
 
     <div class="container">
-      <article id="rip-current" data-keywords="rip current drone rescue edge ai yolo computer vision">
+      <article id="rip-current" role="tabpanel" aria-labelledby="tab-rip-current"
+        data-keywords="rip current drone rescue edge ai yolo computer vision">
         <div class="eyebrow">Computer Vision</div>
         <h2>Designing a rip current detection system for real rescue workflows</h2>
         <div class="meta"><span>Field note</span><span>7 min read</span><span>Drone systems</span></div>
-        <p>Rip currents are dangerous because they can be hard to see from shore. The technical goal is not only to draw a box on video, but to create an early-warning system that helps lifeguards make decisions quickly.</p>
-        <p>My approach starts with the environment. Water reflections, moving waves, weather changes, and camera motion all create patterns that can confuse a model. That makes data quality and testing conditions just as important as architecture choice.</p>
+        <p>Rip currents are dangerous because they can be hard to see from shore. The technical goal is not only to draw
+          a box on video, but to create an early-warning system that helps lifeguards make decisions quickly.</p>
+        <p>My approach starts with the environment. Water reflections, moving waves, weather changes, and camera motion
+          all create patterns that can confuse a model. That makes data quality and testing conditions just as important
+          as architecture choice.</p>
         <h3>What I optimize for</h3>
-        <p>I care about speed, stability, and clear output. A drone system has limited compute, so the model has to be lightweight enough for edge inference while still being reliable under messy coastal conditions.</p>
-        <div class="quote">The useful system is the one that works when the scene is imperfect, not only when the demo video is clean.</div>
-        <p>The next step is connecting model output to a human workflow: alert timing, location clarity, and confidence signals that are understandable during rescue operations.</p>
-        <ul class="tag-list"><li>YOLOv11</li><li>PyTorch</li><li>OpenCV</li><li>Edge AI</li><li>Drones</li></ul>
+        <p>I care about speed, stability, and clear output. A drone system has limited compute, so the model has to be
+          lightweight enough for edge inference while still being reliable under messy coastal conditions.</p>
+        <div class="quote">The useful system is the one that works when the scene is imperfect, not only when the demo
+          video is clean.</div>
+        <p>The next step is connecting model output to a human workflow: alert timing, location clarity, and confidence
+          signals that are understandable during rescue operations.</p>
+        <ul class="tag-list">
+          <li>YOLOv11</li>
+          <li>PyTorch</li>
+          <li>OpenCV</li>
+          <li>Edge AI</li>
+          <li>Drones</li>
+        </ul>
+        <a class="related-record" href="projects.html#rip-current">Related project record <span
+            aria-hidden="true">&rarr;</span></a>
       </article>
 
-      <article id="yolo-experiments" data-keywords="yolo dataset training augmentation model workflow">
+      <article id="yolo-experiments" role="tabpanel" aria-labelledby="tab-yolo-experiments"
+        data-keywords="yolo dataset training augmentation model workflow" hidden>
         <div class="eyebrow">Technical note</div>
         <h2>How I approach YOLO experiments before training gets expensive</h2>
         <div class="meta"><span>5 min read</span><span>Model workflow</span><span>Dataset quality</span></div>
-        <p>Before I train a YOLO model, I try to remove avoidable uncertainty. A few hours spent inspecting labels can save many failed training runs later.</p>
+        <p>Before I train a YOLO model, I try to remove avoidable uncertainty. A few hours spent inspecting labels can
+          save many failed training runs later.</p>
         <h3>My checklist</h3>
-        <p>I check class balance, annotation consistency, image resolution, lighting variation, and whether the train/validation split represents the real deployment scene. If the validation set is too easy, the metrics become comforting but not useful.</p>
-        <p>I also prefer small baseline runs before large experiments. They reveal broken labels, over-aggressive augmentations, and bad assumptions about the data pipeline while the cost is still low.</p>
+        <p>I check class balance, annotation consistency, image resolution, lighting variation, and whether the
+          train/validation split represents the real deployment scene. If the validation set is too easy, the metrics
+          become comforting but not useful.</p>
+        <p>I also prefer small baseline runs before large experiments. They reveal broken labels, over-aggressive
+          augmentations, and bad assumptions about the data pipeline while the cost is still low.</p>
         <div class="quote">Good experiments are not just faster. They make wrong assumptions visible earlier.</div>
-        <p>Only after that do I compare model sizes, augmentation strategies, and inference settings for the deployment target.</p>
-        <ul class="tag-list"><li>YOLO</li><li>Dataset review</li><li>Training</li><li>Computer Vision</li></ul>
+        <p>Only after that do I compare model sizes, augmentation strategies, and inference settings for the deployment
+          target.</p>
+        <ul class="tag-list">
+          <li>YOLO</li>
+          <li>Dataset review</li>
+          <li>Training</li>
+          <li>Computer Vision</li>
+        </ul>
+        <a class="related-record" href="projects.html#traffic-sign">Related project record <span
+            aria-hidden="true">&rarr;</span></a>
       </article>
 
-      <article id="ai-interfaces" data-keywords="product interface full stack dashboard ai ux web">
+      <article id="ai-interfaces" role="tabpanel" aria-labelledby="tab-ai-interfaces"
+        data-keywords="product interface full stack dashboard ai ux web" hidden>
         <div class="eyebrow">Reflection</div>
         <h2>What full-stack projects taught me about AI product interfaces</h2>
         <div class="meta"><span>4 min read</span><span>Web development</span><span>Product thinking</span></div>
-        <p>Building hotel management dashboards, startup platforms, and FaceFeel taught me that AI projects still depend on ordinary product details: loading states, permissions, error messages, and database design.</p>
-        <p>An accurate model can feel weak if the interface does not show what is happening. A simpler model can feel strong when the workflow is clear and users know what to do next.</p>
+        <p>Building hotel management dashboards, startup platforms, and FaceFeel taught me that AI projects still depend
+          on ordinary product details: loading states, permissions, error messages, and database design.</p>
+        <p>An accurate model can feel weak if the interface does not show what is happening. A simpler model can feel
+          strong when the workflow is clear and users know what to do next.</p>
         <h3>What changed in my thinking</h3>
-        <p>I now design AI features around the decision they support. For a recommender, that means feedback and context. For detection systems, that means timing, confidence, and visual clarity. For dashboards, that means the right people seeing the right data.</p>
+        <p>I now design AI features around the decision they support. For a recommender, that means feedback and
+          context. For detection systems, that means timing, confidence, and visual clarity. For dashboards, that means
+          the right people seeing the right data.</p>
         <div class="quote">The interface is where machine learning becomes usable.</div>
         <p>That is why I keep practicing both sides: model development and full-stack implementation.</p>
-        <ul class="tag-list"><li>JavaScript</li><li>PHP</li><li>MySQL</li><li>AI UX</li></ul>
+        <ul class="tag-list">
+          <li>JavaScript</li>
+          <li>PHP</li>
+          <li>MySQL</li>
+          <li>AI UX</li>
+        </ul>
+        <a class="related-record" href="projects.html#hotel-platform">Related project record <span
+            aria-hidden="true">&rarr;</span></a>
       </article>
 
-      <article id="learning-notes" data-keywords="learning notes experiment computer vision study workflow">
+      <article id="learning-notes" role="tabpanel" aria-labelledby="tab-learning-notes"
+        data-keywords="learning notes experiment computer vision study workflow" hidden>
         <div class="eyebrow">Learning log</div>
         <h2>How I keep computer vision learning notes useful</h2>
         <div class="meta"><span>6 min read</span><span>Study workflow</span><span>Computer Vision</span></div>
-        <p>Learning notes only help when they survive beyond the day they were written. For computer vision, I try to keep notes close to experiments, code snippets, failure cases, and visual examples.</p>
-        <p>My preferred format is simple: the idea, the setup, the result, what confused me, and what I would test next. That structure works for papers, model training logs, AR demos, and small prototypes.</p>
+        <p>Learning notes only help when they survive beyond the day they were written. For computer vision, I try to
+          keep notes close to experiments, code snippets, failure cases, and visual examples.</p>
+        <p>My preferred format is simple: the idea, the setup, the result, what confused me, and what I would test next.
+          That structure works for papers, model training logs, AR demos, and small prototypes.</p>
         <h3>What makes a note reusable</h3>
-        <p>A reusable note has enough context that future me can restart the experiment without guessing. It includes dataset assumptions, library versions when they matter, screenshots or outputs, and one clear takeaway.</p>
+        <p>A reusable note has enough context that future me can restart the experiment without guessing. It includes
+          dataset assumptions, library versions when they matter, screenshots or outputs, and one clear takeaway.</p>
         <div class="quote">A good learning note is not a diary entry. It is a small bridge back into the problem.</div>
         <p>This keeps the blog useful too: each post should capture a lesson that can guide the next build.</p>
-        <ul class="tag-list"><li>Computer Vision</li><li>Learning</li><li>Experiments</li><li>Writing</li></ul>
+        <ul class="tag-list">
+          <li>Computer Vision</li>
+          <li>Learning</li>
+          <li>Experiments</li>
+          <li>Writing</li>
+        </ul>
       </article>
     </div>
   </main>
 
   <footer>
-    <div class="container">© 2026 Victor Bui. Blog and portfolio.</div>
+    <div class="container">&copy; 2026 Victor Bui. AI/ML Journal &amp; Portfolio.</div>
   </footer>
 
   <button class="to-top" type="button" id="toTopButton" aria-label="Back to top">
     <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="m6 14 6-6 6 6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="m6 14 6-6 6 6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
   </button>
 
@@ -647,6 +1162,7 @@
     const themeToggle = document.getElementById("themeToggle");
     const menuToggle = document.getElementById("menuToggle");
     const navLinks = document.getElementById("navLinks");
+    const navAnchors = document.querySelectorAll(".nav-links a");
     const readingProgress = document.getElementById("readingProgress");
     const toTopButton = document.getElementById("toTopButton");
     const articleSearch = document.getElementById("articleSearch");
@@ -675,8 +1191,19 @@
       setTheme(root.dataset.theme === "dark" ? "light" : "dark");
     });
 
+    window.addEventListener("storage", (event) => {
+      if (event.key === "theme" && (event.newValue === "light" || event.newValue === "dark")) {
+        root.dataset.theme = event.newValue;
+        themeToggle.setAttribute("aria-label", event.newValue === "dark" ? "Switch to light theme" : "Switch to dark theme");
+      }
+    });
+
     menuToggle.addEventListener("click", () => {
       setMenuOpen(!navLinks.classList.contains("open"));
+    });
+
+    navAnchors.forEach((anchor) => {
+      anchor.addEventListener("click", () => setMenuOpen(false));
     });
 
     document.addEventListener("click", (event) => {
@@ -695,27 +1222,74 @@
       return text.toLowerCase().trim();
     }
 
-    function filterArticles() {
-      const query = normalizeText(articleSearch.value);
-      let visibleCount = 0;
+    let matchingArticles = [...articles];
+    let activeArticleId = window.location.hash.slice(1);
+
+    function showArticle(id, { updateHash = true, scroll = false } = {}) {
+      const target = matchingArticles.find((article) => article.id === id) || matchingArticles[0];
 
       articles.forEach((article) => {
-        const text = normalizeText(`${article.dataset.keywords || ""} ${article.textContent || ""}`);
-        const isVisible = !query || text.includes(query);
-
-        article.hidden = !isVisible;
-        if (isVisible) visibleCount += 1;
-
-        const tocLink = tocLinks.find((link) => link.getAttribute("href") === `#${article.id}`);
-        if (tocLink) tocLink.hidden = !isVisible;
+        article.hidden = !target || article !== target;
       });
 
+      tocLinks.forEach((link) => {
+        const isActive = Boolean(target) && link.getAttribute("href") === `#${target.id}`;
+        link.classList.toggle("active", isActive);
+        link.setAttribute("aria-selected", String(isActive));
+        link.tabIndex = isActive ? 0 : -1;
+      });
+
+      activeArticleId = target?.id || "";
+      if (target && updateHash) history.pushState(null, "", `#${target.id}`);
+      if (target && scroll) target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function filterArticles() {
+      const query = normalizeText(articleSearch.value);
+      matchingArticles = articles.filter((article) => {
+        const text = normalizeText(`${article.dataset.keywords || ""} ${article.textContent || ""}`);
+        return !query || text.includes(query);
+      });
+
+      articles.forEach((article) => {
+        const tocLink = tocLinks.find((link) => link.getAttribute("href") === `#${article.id}`);
+        if (tocLink) tocLink.hidden = !matchingArticles.includes(article);
+      });
+
+      const visibleCount = matchingArticles.length;
       searchStatus.textContent = query
         ? `${visibleCount} article${visibleCount === 1 ? "" : "s"} found for "${query}".`
-        : "Showing all articles.";
+        : "Choose a note above to read its full content.";
+
+      showArticle(activeArticleId, { updateHash: false });
     }
 
     articleSearch.addEventListener("input", filterArticles);
+
+    tocLinks.forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        showArticle(link.getAttribute("href").slice(1), { scroll: true });
+      });
+      link.addEventListener("keydown", (event) => {
+        if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) return;
+        event.preventDefault();
+        const visibleTabs = tocLinks.filter((tab) => !tab.hidden);
+        const currentIndex = visibleTabs.indexOf(link);
+        const direction = event.key === 'ArrowRight' || event.key === 'ArrowDown' ? 1 : -1;
+        const nextTab = visibleTabs[(currentIndex + direction + visibleTabs.length) % visibleTabs.length];
+        nextTab?.focus();
+        if (nextTab) showArticle(nextTab.getAttribute("href").slice(1));
+      });
+    });
+
+    window.addEventListener("hashchange", () => {
+      const requestedId = window.location.hash.slice(1);
+      if (!articles.some((article) => article.id === requestedId)) return;
+      articleSearch.value = "";
+      activeArticleId = requestedId;
+      filterArticles();
+    });
 
     function updateScrollUi() {
       const maxScrollable = document.body.scrollHeight - window.innerHeight;
@@ -738,8 +1312,11 @@
       window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
+    const requestedArticle = articles.find((article) => article.id === window.location.hash.slice(1));
     filterArticles();
+    if (requestedArticle) requestAnimationFrame(() => requestedArticle.scrollIntoView({ block: "start" }));
     updateScrollUi();
   </script>
 </body>
+
 </html>
