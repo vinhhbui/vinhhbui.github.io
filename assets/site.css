@@ -465,6 +465,106 @@ section {
   font-size: 0.86rem;
 }
 
+.hackathon-card {
+  display: grid;
+  grid-template-columns: 0.28fr 1fr 0.52fr;
+  gap: clamp(26px, 4vw, 58px);
+  padding: clamp(28px, 4vw, 54px);
+  border: 1px solid var(--line);
+  border-top: 9px solid var(--orange);
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.hackathon-year {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+}
+
+.hackathon-year span {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hackathon-year strong {
+  color: var(--blue);
+  font-size: clamp(3.4rem, 7vw, 7rem);
+  line-height: 0.8;
+  letter-spacing: -0.08em;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+}
+
+.hackathon-copy h3 {
+  max-width: 690px;
+  margin: 16px 0 20px;
+  font-size: clamp(2.8rem, 6vw, 6.2rem);
+  line-height: 0.9;
+  letter-spacing: -0.075em;
+}
+
+.hackathon-copy > p:not(.project-index) {
+  max-width: 42rem;
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.hackathon-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px 24px;
+  margin-top: 32px;
+}
+
+.hackathon-actions span {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.hackathon-facts {
+  align-self: stretch;
+  display: grid;
+  align-content: end;
+  gap: 0;
+  margin: 0;
+}
+
+.hackathon-facts div {
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.hackathon-facts dt {
+  margin-bottom: 5px;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hackathon-facts dd {
+  margin: 0;
+  font-size: 0.94rem;
+  font-weight: 850;
+}
+
+.hackathon-update-note {
+  max-width: 47rem;
+  margin: 24px 0 0 auto;
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-align: right;
+}
+
 .profile-grid {
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
@@ -909,6 +1009,16 @@ section {
     grid-template-columns: 1fr;
   }
 
+  .hackathon-card {
+    grid-template-columns: 0.25fr 1fr;
+  }
+
+  .hackathon-facts {
+    grid-column: 1 / -1;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
   .project-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -982,6 +1092,32 @@ section {
 
   .project-grid {
     grid-template-columns: 1fr;
+  }
+
+  .hackathon-card {
+    grid-template-columns: 1fr;
+  }
+
+  .hackathon-year {
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .hackathon-year strong {
+    font-size: 3.8rem;
+    writing-mode: initial;
+    transform: none;
+  }
+
+  .hackathon-facts {
+    grid-column: auto;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .hackathon-update-note {
+    text-align: left;
   }
 
   .project-card {
