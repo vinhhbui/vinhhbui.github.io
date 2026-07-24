@@ -4,1319 +4,162 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Blog articles by Victor Bui on AI, computer vision, and product engineering." />
-  <title>Blog - Victor Bui</title>
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #101215;
-      --surface: #1d2229;
-      --surface-strong: #252b34;
-      --text: #f4f7fb;
-      --muted: #a8b3c2;
-      --subtle: #748094;
-      --line: rgba(190, 203, 220, 0.16);
-      --brand: #4fd1c5;
-      --accent: #f2b84b;
-      --accent-2: #7aa2ff;
-      --radius: 8px;
-      --max: 920px;
-      --shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
-    }
-
-    [data-theme="light"] {
-      color-scheme: light;
-      --bg: #f7f5ef;
-      --surface: #ffffff;
-      --surface-strong: #f3f0e8;
-      --text: #14181f;
-      --muted: #4d5968;
-      --subtle: #6f7885;
-      --line: rgba(25, 31, 42, 0.13);
-      --brand: #0f8f88;
-      --accent: #b7791f;
-      --accent-2: #315fbd;
-      --shadow: 0 22px 60px rgba(31, 35, 43, 0.13);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.7;
-    }
-
-    body.menu-open {
-      overflow: hidden;
-    }
-
-    a {
-      color: inherit;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    img {
-      display: block;
-      max-width: 100%;
-    }
-
-    :focus-visible {
-      outline: 3px solid color-mix(in srgb, var(--accent) 72%, white);
-      outline-offset: 2px;
-    }
-
-    .skip-link {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      z-index: 50;
-      padding: 10px 14px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface);
-      color: var(--text);
-      font-weight: 800;
-      text-decoration: none;
-      transform: translateY(-160%);
-      transition: transform 0.2s ease;
-    }
-
-    .skip-link:focus-visible {
-      transform: translateY(0);
-    }
-
-    .progress-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 20;
-      width: 100%;
-      height: 3px;
-      background: transparent;
-      pointer-events: none;
-    }
-
-    .progress-bar span {
-      display: block;
-      width: 0;
-      height: 100%;
-      background: linear-gradient(90deg, var(--brand), var(--accent-2));
-      transition: width 0.1s linear;
-    }
-
-    .container {
-      width: min(var(--max), calc(100% - 40px));
-      margin: 0 auto;
-    }
-
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      border-bottom: 1px solid var(--line);
-      background: color-mix(in srgb, var(--bg) 88%, transparent);
-      backdrop-filter: blur(18px);
-    }
-
-    .nav-inner {
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .brand,
-    .nav-links,
-    .theme-toggle {
-      display: inline-flex;
-      align-items: center;
-    }
-
-    .brand {
-      gap: 10px;
-      font-weight: 850;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    .brand-mark {
-      width: 38px;
-      height: 38px;
-      display: grid;
-      place-items: center;
-      border-radius: var(--radius);
-      background: linear-gradient(135deg, var(--brand), var(--accent-2));
-      color: #071012;
-      font-size: 0.86rem;
-    }
-
-    .nav-links {
-      gap: 8px;
-    }
-
-    .nav-links a,
-    .theme-toggle {
-      min-height: 44px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface);
-      color: var(--text);
-      font-weight: 800;
-      text-decoration: none;
-      touch-action: manipulation;
-    }
-
-    .nav-links a {
-      padding: 0 14px;
-    }
-
-    .theme-toggle {
-      width: 42px;
-      justify-content: center;
-      cursor: pointer;
-    }
-
-    .menu-toggle {
-      width: 44px;
-      min-height: 44px;
-      display: none;
-      justify-content: center;
-      align-items: center;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface);
-      color: var(--text);
-      cursor: pointer;
-      touch-action: manipulation;
-    }
-
-    .theme-toggle svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    .menu-toggle svg {
-      width: 18px;
-      height: 18px;
-    }
-
-    header {
-      padding: 64px 0 30px;
-    }
-
-    .eyebrow {
-      margin-bottom: 12px;
-      color: var(--brand);
-      font-size: 0.78rem;
-      font-weight: 900;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
-    h1,
-    h2,
-    h3,
-    p {
-      margin-top: 0;
-    }
-
-    h1 {
-      max-width: 840px;
-      margin-bottom: 18px;
-      font-size: clamp(2.2rem, 7vw, 4.8rem);
-      line-height: 0.98;
-      letter-spacing: 0;
-    }
-
-    .intro {
-      max-width: 720px;
-      color: var(--muted);
-      font-size: 1.08rem;
-    }
-
-    .hero-image {
-      margin: 24px 0 0;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-
-    .hero-image img {
-      width: 100%;
-      height: clamp(260px, 42vw, 460px);
-      object-fit: cover;
-    }
-
-    .toc {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-      margin: 28px 0 10px;
-    }
-
-    .toc a {
-      min-height: 58px;
-      display: flex;
-      align-items: center;
-      padding: 12px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface);
-      color: var(--muted);
-      font-size: 0.9rem;
-      font-weight: 800;
-      text-decoration: none;
-    }
-
-    .header-tools {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 10px;
-      margin-top: 16px;
-    }
-
-    .search-input {
-      width: 100%;
-      min-height: 44px;
-      padding: 0 14px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface);
-      color: var(--text);
-      font: inherit;
-    }
-
-    .search-status {
-      margin: 10px 0 0;
-      color: var(--subtle);
-      font-size: 0.88rem;
-      font-weight: 700;
-    }
-
-    article {
-      scroll-margin-top: 96px;
-      margin: 56px 0;
-      padding: clamp(22px, 4vw, 36px);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      background: var(--surface);
-    }
-
-    article h2 {
-      margin-bottom: 8px;
-      font-size: clamp(1.7rem, 4vw, 2.6rem);
-      line-height: 1.08;
-    }
-
-    .meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 24px;
-      color: var(--subtle);
-      font-size: 0.88rem;
-      font-weight: 800;
-    }
-
-    article h3 {
-      margin: 28px 0 8px;
-      color: var(--accent);
-      font-size: 1.05rem;
-    }
-
-    article p {
-      color: var(--muted);
-    }
-
-    .quote {
-      margin: 24px 0;
-      padding: 18px;
-      border-left: 3px solid var(--brand);
-      border-radius: var(--radius);
-      background: var(--surface-strong);
-      color: var(--text);
-      font-weight: 750;
-    }
-
-    .tag-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 24px 0 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .tag-list li {
-      min-height: 28px;
-      display: inline-flex;
-      align-items: center;
-      padding: 0 10px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      color: var(--muted);
-      background: var(--surface-strong);
-      font-size: 0.76rem;
-      font-weight: 800;
-    }
-
-    footer {
-      padding: 24px 0 36px;
-      border-top: 1px solid var(--line);
-      color: var(--subtle);
-      font-size: 0.9rem;
-      font-weight: 750;
-    }
-
-    .to-top {
-      position: fixed;
-      right: 20px;
-      bottom: calc(16px + env(safe-area-inset-bottom));
-      z-index: 18;
-      width: 50px;
-      height: 50px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: color-mix(in srgb, var(--surface) 88%, transparent);
-      color: var(--text);
-      display: inline-grid;
-      place-items: center;
-      cursor: pointer;
-      box-shadow: var(--shadow);
-      opacity: 0;
-      transform: translateY(12px);
-      pointer-events: none;
-      transition: opacity 0.2s ease, transform 0.2s ease;
-    }
-
-    .to-top.show {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
-
-    @media (max-width: 760px) {
-      .container {
-        width: min(100% - 28px, var(--max));
-      }
-
-      .nav-inner {
-        min-height: 64px;
-      }
-
-      .brand span:last-child {
-        display: none;
-      }
-
-      .toc {
-        grid-template-columns: 1fr;
-      }
-
-      .menu-toggle {
-        display: inline-flex;
-      }
-
-      .nav-links {
-        position: absolute;
-        left: 14px;
-        right: 14px;
-        top: 74px;
-        display: none;
-        flex-direction: column;
-        gap: 6px;
-        padding: 10px;
-        border: 1px solid var(--line);
-        border-radius: var(--radius);
-        background: var(--surface);
-        box-shadow: var(--shadow);
-        max-height: min(72vh, 430px);
-        overflow-y: auto;
-      }
-
-      .nav-links.open {
-        display: flex;
-      }
-
-      .nav-links a {
-        width: 100%;
-        padding: 0 10px;
-      }
-
-      .header-tools {
-        grid-template-columns: 1fr;
-      }
-
-      header {
-        padding: 48px 0 24px;
-      }
-
-      article {
-        margin: 34px 0;
-        padding: 20px;
-      }
-
-      .to-top {
-        right: 14px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .container {
-        width: min(100% - 20px, var(--max));
-      }
-
-      .nav-inner {
-        min-height: 60px;
-      }
-
-      .nav-links {
-        left: 10px;
-        right: 10px;
-        top: 68px;
-      }
-
-      h1 {
-        font-size: clamp(1.9rem, 10vw, 2.55rem);
-      }
-
-      .intro {
-        font-size: 0.98rem;
-      }
-
-      .hero-image img {
-        height: 240px;
-      }
-
-      .toc a {
-        min-height: 52px;
-        font-size: 0.86rem;
-      }
-
-      .search-input {
-        min-height: 46px;
-      }
-
-      article h2 {
-        font-size: clamp(1.45rem, 6.4vw, 1.9rem);
-      }
-
-      .meta {
-        margin-bottom: 16px;
-        font-size: 0.8rem;
-      }
-
-      .quote {
-        margin: 18px 0;
-        padding: 14px;
-      }
-
-      .to-top {
-        width: 48px;
-        height: 48px;
-      }
-    }
-
-    /* Dedicated journal: warm, readable, and distinct from the portfolio */
-    html[data-theme="light"] {
-      color-scheme: light;
-      --bg: #faf9f5;
-      --surface: #efe9de;
-      --surface-strong: #e8e0d2;
-      --text: #141413;
-      --muted: #3d3d3a;
-      --subtle: #6c6a64;
-      --line: #e6dfd8;
-      --brand: #cc785c;
-      --brand-strong: #a9583e;
-      --accent: #cc785c;
-      --accent-2: #5db8a6;
-      --feature-bg: #181715;
-      --feature-text: #faf9f5;
-      --feature-muted: #d2cdc4;
-      --feature-inner: #252320;
-      --radius: 12px;
-      --max: 1200px;
-      --shadow: 0 1px 3px rgba(20, 20, 19, .08);
-    }
-
-    html[data-theme="dark"] {
-      color-scheme: dark;
-      --bg: #181715;
-      --surface: #252320;
-      --surface-strong: #302e29;
-      --text: #faf9f5;
-      --muted: #d2cdc4;
-      --subtle: #a09d96;
-      --line: #444039;
-      --brand: #df987d;
-      --brand-strong: #efaf94;
-      --accent: #df987d;
-      --accent-2: #72c7b6;
-      --feature-bg: #efe9de;
-      --feature-text: #141413;
-      --feature-muted: #3d3d3a;
-      --feature-inner: #e8e0d2;
-      --radius: 12px;
-      --max: 1200px;
-      --shadow: 0 1px 3px rgba(0, 0, 0, .28);
-    }
-
-    body {
-      background: var(--bg);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-    }
-
-    .site-nav {
-      min-height: 64px;
-      background: color-mix(in srgb, var(--bg) 94%, transparent);
-      border-color: var(--line);
-    }
-
-    .nav-inner {
-      min-height: 64px;
-    }
-
-    .brand {
-      font: 400 1.28rem/1 Georgia, "Times New Roman", serif;
-      letter-spacing: -.03em;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .nav-links a,
-    .theme-toggle {
-      min-height: 40px;
-      border: 0;
-      background: transparent;
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    .nav-links a {
-      display: inline-flex;
-      align-items: center;
-      padding: 0 12px;
-      border-radius: 8px;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      color: var(--text);
-      background: var(--surface);
-    }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .journal-nav-button {
-      min-height: 40px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 16px;
-      border-radius: 8px;
-      background: var(--brand);
-      color: #fff;
-      font-size: .88rem;
-      font-weight: 600;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    .journal-nav-button:hover,
-    .journal-nav-button.active {
-      background: var(--brand-strong);
-    }
-
-    .theme-toggle {
-      width: 40px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-    }
-
-    .theme-toggle .icon-sun,
-    .theme-toggle .icon-moon {
-      font-size: 1.15rem;
-      line-height: 1;
-    }
-
-    html[data-theme="light"] .theme-toggle .icon-sun,
-    html[data-theme="dark"] .theme-toggle .icon-moon {
-      display: none;
-    }
-
-    header {
-      padding: 96px 0 48px;
-    }
-
-    header .container,
-    main>.container {
-      width: min(1040px, calc(100% - 40px));
-    }
-
-    .eyebrow {
-      color: var(--brand);
-      font-size: .75rem;
-      font-weight: 600;
-      letter-spacing: .13em;
-    }
-
-    h1,
-    article h2 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-weight: 400;
-      letter-spacing: -.045em;
-    }
-
-    h1 {
-      max-width: 900px;
-      font-size: clamp(3rem, 7vw, 5.6rem);
-      line-height: 1.01;
-    }
-
-    .intro {
-      max-width: 650px;
-      color: var(--muted);
-      font-size: 1.12rem;
-    }
-
-    .archive-switch {
-      width: max-content;
-      max-width: 100%;
-      display: flex;
-      gap: 6px;
-      margin: 26px 0 0;
-      padding: 5px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: var(--surface);
-    }
-
-    .archive-switch a,
-    .archive-switch span {
-      min-height: 38px;
-      display: inline-flex;
-      align-items: center;
-      padding: 0 13px;
-      border-radius: 7px;
-      font-size: .84rem;
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    .archive-switch .active {
-      background: var(--bg);
-      color: var(--text);
-    }
-
-    .archive-switch a {
-      color: var(--muted);
-    }
-
-    .hero-image {
-      margin-top: 42px;
-      border: 0;
-      border-radius: 16px;
-      box-shadow: none;
-    }
-
-    .hero-image img {
-      height: clamp(260px, 38vw, 430px);
-      filter: saturate(.75);
-    }
-
-    .toc {
-      gap: 8px;
-      margin: 28px 0 14px;
-    }
-
-    .toc a {
-      min-height: 50px;
-      border: 0;
-      border-radius: 8px;
-      background: var(--surface);
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .toc a.active {
-      background: var(--brand);
-      color: #fff;
-    }
-
-    .toc a[hidden] {
-      display: none;
-    }
-
-    .search-input {
-      min-height: 42px;
-      border-color: var(--line);
-      border-radius: 8px;
-      background: var(--bg);
-    }
-
-    article {
-      margin: 40px 0;
-      padding: clamp(28px, 5vw, 52px);
-      border: 0;
-      border-radius: 12px;
-      background: var(--surface);
-    }
-
-    article[hidden] {
-      display: none;
-    }
-
-    article:first-child {
-      background: var(--feature-bg);
-      color: var(--feature-text);
-    }
-
-    article:first-child p,
-    article:first-child .meta {
-      color: var(--feature-muted);
-    }
-
-    article h2 {
-      font-size: clamp(2rem, 4.5vw, 3.35rem);
-      line-height: 1.08;
-    }
-
-    article h3 {
-      color: var(--brand);
-      font-weight: 600;
-    }
-
-    article p {
-      color: var(--muted);
-    }
-
-    .meta {
-      color: var(--subtle);
-      font-weight: 600;
-    }
-
-    .quote {
-      border-left-color: var(--brand);
-      border-radius: 0 8px 8px 0;
-      background: var(--surface-strong);
-      font-weight: 600;
-    }
-
-    article:first-child .quote {
-      background: var(--feature-inner);
-      color: var(--feature-text);
-    }
-
-    article:first-child .tag-list li {
-      background: var(--feature-inner);
-      color: var(--feature-muted);
-    }
-
-    .tag-list li {
-      border: 0;
-      background: var(--surface-strong);
-      color: var(--muted);
-      font-weight: 600;
-    }
-
-    .related-record {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      margin-top: 20px;
-      color: var(--brand-strong);
-      font-size: .86rem;
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    footer {
-      margin-top: 96px;
-      padding: 58px 0;
-      border: 0;
-      background: #181715;
-      color: #a09d96;
-    }
-
-    .to-top {
-      border-color: var(--line);
-      background: var(--bg);
-      color: var(--text);
-      box-shadow: var(--shadow);
-    }
-
-    @media (max-width:760px) {
-      .brand span:last-child {
-        display: inline;
-      }
-
-      .nav-links {
-        display: none;
-        background: var(--bg);
-      }
-
-      .nav-links.open {
-        display: flex;
-      }
-
-      .nav-links li {
-        width: 100%;
-      }
-
-      header {
-        padding: 56px 0 34px;
-      }
-
-      header .container,
-      main>.container {
-        width: min(100% - 28px, 1040px);
-      }
-
-      h1 {
-        font-size: clamp(2.55rem, 10vw, 3.8rem);
-      }
-
-      .hero-image img {
-        height: 300px;
-      }
-
-      .toc {
-        grid-template-columns: 1fr;
-      }
-
-      article {
-        margin: 24px 0;
-        padding: 24px;
-      }
-
-      article h2 {
-        font-size: clamp(1.8rem, 7vw, 2.5rem);
-      }
-
-      footer {
-        margin-top: 72px;
-      }
-    }
-
-    @media (max-width:480px) {
-
-      .container,
-      header .container,
-      main>.container {
-        width: min(100% - 20px, var(--max));
-      }
-
-      .nav-inner {
-        gap: 8px;
-      }
-
-      .brand {
-        font-size: 1.08rem;
-      }
-
-      .nav-actions {
-        gap: 6px;
-      }
-
-      .journal-nav-button {
-        min-height: 38px;
-        padding: 0 11px;
-        font-size: .8rem;
-      }
-
-      .theme-toggle,
-      .menu-toggle {
-        width: 38px;
-        min-height: 38px;
-      }
-
-      h1 {
-        font-size: clamp(2.2rem, 11vw, 2.65rem);
-      }
-
-      .intro {
-        font-size: 1rem;
-      }
-
-      .hero-image img {
-        height: 220px;
-      }
-
-      article {
-        padding: 20px;
-      }
-
-      article h2 {
-        font-size: clamp(1.65rem, 8vw, 2rem);
-      }
-
-      .quote {
-        padding: 14px;
-      }
-
-      footer {
-        margin-top: 60px;
-      }
-    }
-  </style>
+  <meta name="description"
+    content="Working notes from Victor Bui on computer vision, AI experiments, product interfaces, and learning." />
+  <meta name="theme-color" content="#f4f1e8" />
+  <meta property="og:title" content="Notes — Victor Bui" />
+  <meta property="og:description"
+    content="How Victor Bui approaches AI experiments, product decisions, and continuous learning." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og-portfolio-v2.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Notes — Victor Bui" />
+  <meta name="twitter:description"
+    content="How Victor Bui approaches AI experiments, product decisions, and continuous learning." />
+  <meta name="twitter:image" content="assets/og-portfolio-v2.png" />
+  <title>Notes — Victor Bui</title>
+  <link rel="stylesheet" href="assets/site.css" />
+  <script src="assets/site.js" defer></script>
 </head>
 
 <body>
-  <a class="skip-link" href="#mainContent">Skip to main content</a>
-  <div class="progress-bar" aria-hidden="true"><span id="readingProgress"></span></div>
-  <nav class="site-nav" aria-label="Primary navigation">
-    <div class="container nav-inner">
-      <a class="brand" href="index.html" aria-label="Victor Bui home">
-        <span>Victor Bui</span>
-      </a>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-      <ul class="nav-links" id="navLinks">
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="index.html#about">About</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
+  <header class="site-header">
+    <nav class="container nav-shell" aria-label="Main navigation">
+      <a class="brand" href="index.html" aria-label="Victor Bui home">Victor<span>.</span></a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="projects.html">Work</a></li>
+        <li><a href="index.html#profile">Profile</a></li>
+        <li><a href="#notes" aria-current="page">Notes</a></li>
       </ul>
-
       <div class="nav-actions">
-        <a class="journal-nav-button active" href="#mainContent" aria-current="page">Journal</a>
-        <button class="theme-toggle" type="button" id="themeToggle" aria-label="Switch to dark theme">
-          <span class="icon-sun" aria-hidden="true">&#9728;</span>
-          <span class="icon-moon" aria-hidden="true">&#9790;</span>
-        </button>
-        <button class="menu-toggle" type="button" id="menuToggle" aria-label="Open navigation menu"
-          aria-expanded="false">
-          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
-            <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" />
-          </svg>
-        </button>
+        <button class="theme-toggle" type="button" aria-label="Switch color theme">Dark</button>
+        <a class="nav-contact" href="mailto:buiquangvinh.work@gmail.com">Say hello</a>
+        <button class="menu-toggle" type="button" aria-controls="nav-links" aria-expanded="false">Menu</button>
       </div>
-    </div>
-  </nav>
+    </nav>
+  </header>
 
-  <main id="mainContent">
-    <header>
-      <div class="container">
-        <div class="eyebrow">Journal · Notes</div>
-        <h1>Working notes, separated from project records.</h1>
-        <p class="intro">This space contains technical notes, learning logs, and reflections. Structured case studies
-          live in the separate project archive.</p>
-        <div class="archive-switch" aria-label="Content areas"><span class="active" aria-current="page">Journal
-            notes</span><a href="projects.html">Project records</a></div>
-        <figure class="hero-image">
-          <img src="assets/ai-blog-hero.png"
-            alt="AI research workspace illustration with computer vision and drone elements." />
-        </figure>
-        <div class="toc" role="tablist" aria-label="Article list">
-          <a id="tab-rip-current" role="tab" href="#rip-current" aria-controls="rip-current">Rip current detection</a>
-          <a id="tab-yolo-experiments" role="tab" href="#yolo-experiments" aria-controls="yolo-experiments">YOLO
-            experiments</a>
-          <a id="tab-ai-interfaces" role="tab" href="#ai-interfaces" aria-controls="ai-interfaces">AI product
-            interfaces</a>
-          <a id="tab-learning-notes" role="tab" href="#learning-notes" aria-controls="learning-notes">Learning notes</a>
+  <main id="main">
+    <header class="page-hero">
+      <div class="container page-hero-grid">
+        <div>
+          <p class="eyebrow">Field notes · Working principles</p>
+          <h1>Thinking <span>in public.</span></h1>
         </div>
-        <div class="header-tools">
-          <input class="search-input" id="articleSearch" type="search"
-            placeholder="Find an article by keyword (e.g. YOLO, workflow, interface)" aria-label="Search articles" />
-        </div>
-        <p class="search-status" id="searchStatus">Showing all articles.</p>
+        <p class="page-intro"><strong>Projects show the output. Notes show the judgment.</strong>Short reflections on
+          experiments, tradeoffs, product interfaces, and the habits behind reliable technical work.</p>
       </div>
     </header>
 
-    <div class="container">
-      <article id="rip-current" role="tabpanel" aria-labelledby="tab-rip-current"
-        data-keywords="rip current drone rescue edge ai yolo computer vision">
-        <div class="eyebrow">Computer Vision</div>
-        <h2>Designing a rip current detection system for real rescue workflows</h2>
-        <div class="meta"><span>Field note</span><span>7 min read</span><span>Drone systems</span></div>
-        <p>Rip currents are dangerous because they can be hard to see from shore. The technical goal is not only to draw
-          a box on video, but to create an early-warning system that helps lifeguards make decisions quickly.</p>
-        <p>My approach starts with the environment. Water reflections, moving waves, weather changes, and camera motion
-          all create patterns that can confuse a model. That makes data quality and testing conditions just as important
-          as architecture choice.</p>
-        <h3>What I optimize for</h3>
-        <p>I care about speed, stability, and clear output. A drone system has limited compute, so the model has to be
-          lightweight enough for edge inference while still being reliable under messy coastal conditions.</p>
-        <div class="quote">The useful system is the one that works when the scene is imperfect, not only when the demo
-          video is clean.</div>
-        <p>The next step is connecting model output to a human workflow: alert timing, location clarity, and confidence
-          signals that are understandable during rescue operations.</p>
-        <ul class="tag-list">
-          <li>YOLOv11</li>
-          <li>PyTorch</li>
-          <li>OpenCV</li>
-          <li>Edge AI</li>
-          <li>Drones</li>
-        </ul>
-        <a class="related-record" href="projects.html#rip-current">Related project record <span
-            aria-hidden="true">&rarr;</span></a>
-      </article>
-
-      <article id="yolo-experiments" role="tabpanel" aria-labelledby="tab-yolo-experiments"
-        data-keywords="yolo dataset training augmentation model workflow" hidden>
-        <div class="eyebrow">Technical note</div>
-        <h2>How I approach YOLO experiments before training gets expensive</h2>
-        <div class="meta"><span>5 min read</span><span>Model workflow</span><span>Dataset quality</span></div>
-        <p>Before I train a YOLO model, I try to remove avoidable uncertainty. A few hours spent inspecting labels can
-          save many failed training runs later.</p>
-        <h3>My checklist</h3>
-        <p>I check class balance, annotation consistency, image resolution, lighting variation, and whether the
-          train/validation split represents the real deployment scene. If the validation set is too easy, the metrics
-          become comforting but not useful.</p>
-        <p>I also prefer small baseline runs before large experiments. They reveal broken labels, over-aggressive
-          augmentations, and bad assumptions about the data pipeline while the cost is still low.</p>
-        <div class="quote">Good experiments are not just faster. They make wrong assumptions visible earlier.</div>
-        <p>Only after that do I compare model sizes, augmentation strategies, and inference settings for the deployment
-          target.</p>
-        <ul class="tag-list">
-          <li>YOLO</li>
-          <li>Dataset review</li>
-          <li>Training</li>
-          <li>Computer Vision</li>
-        </ul>
-        <a class="related-record" href="projects.html#traffic-sign">Related project record <span
-            aria-hidden="true">&rarr;</span></a>
-      </article>
-
-      <article id="ai-interfaces" role="tabpanel" aria-labelledby="tab-ai-interfaces"
-        data-keywords="product interface full stack dashboard ai ux web" hidden>
-        <div class="eyebrow">Reflection</div>
-        <h2>What full-stack projects taught me about AI product interfaces</h2>
-        <div class="meta"><span>4 min read</span><span>Web development</span><span>Product thinking</span></div>
-        <p>Building hotel management dashboards, startup platforms, and FaceFeel taught me that AI projects still depend
-          on ordinary product details: loading states, permissions, error messages, and database design.</p>
-        <p>An accurate model can feel weak if the interface does not show what is happening. A simpler model can feel
-          strong when the workflow is clear and users know what to do next.</p>
-        <h3>What changed in my thinking</h3>
-        <p>I now design AI features around the decision they support. For a recommender, that means feedback and
-          context. For detection systems, that means timing, confidence, and visual clarity. For dashboards, that means
-          the right people seeing the right data.</p>
-        <div class="quote">The interface is where machine learning becomes usable.</div>
-        <p>That is why I keep practicing both sides: model development and full-stack implementation.</p>
-        <ul class="tag-list">
-          <li>JavaScript</li>
-          <li>PHP</li>
-          <li>MySQL</li>
-          <li>AI UX</li>
-        </ul>
-        <a class="related-record" href="projects.html#hotel-platform">Related project record <span
-            aria-hidden="true">&rarr;</span></a>
-      </article>
-
-      <article id="learning-notes" role="tabpanel" aria-labelledby="tab-learning-notes"
-        data-keywords="learning notes experiment computer vision study workflow" hidden>
-        <div class="eyebrow">Learning log</div>
-        <h2>How I keep computer vision learning notes useful</h2>
-        <div class="meta"><span>6 min read</span><span>Study workflow</span><span>Computer Vision</span></div>
-        <p>Learning notes only help when they survive beyond the day they were written. For computer vision, I try to
-          keep notes close to experiments, code snippets, failure cases, and visual examples.</p>
-        <p>My preferred format is simple: the idea, the setup, the result, what confused me, and what I would test next.
-          That structure works for papers, model training logs, AR demos, and small prototypes.</p>
-        <h3>What makes a note reusable</h3>
-        <p>A reusable note has enough context that future me can restart the experiment without guessing. It includes
-          dataset assumptions, library versions when they matter, screenshots or outputs, and one clear takeaway.</p>
-        <div class="quote">A good learning note is not a diary entry. It is a small bridge back into the problem.</div>
-        <p>This keeps the blog useful too: each post should capture a lesson that can guide the next build.</p>
-        <ul class="tag-list">
-          <li>Computer Vision</li>
-          <li>Learning</li>
-          <li>Experiments</li>
-          <li>Writing</li>
-        </ul>
-      </article>
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Experiment clearly</span><span>Test assumptions</span><span>Design for people</span><span>Learn in loops</span>
+        <span>Experiment clearly</span><span>Test assumptions</span><span>Design for people</span><span>Learn in loops</span>
+      </div>
     </div>
+
+    <section class="notes-section" id="notes">
+      <div class="container notes-layout">
+        <nav class="notes-index reveal" aria-label="Note index">
+          <p class="section-kicker">Browse notes</p>
+          <ul>
+            <li><a href="#rip-current">Rescue workflow design</a></li>
+            <li><a href="#yolo-experiments">Better model experiments</a></li>
+            <li><a href="#ai-interfaces">AI product interfaces</a></li>
+            <li><a href="#learning-notes">Reusable learning notes</a></li>
+          </ul>
+        </nav>
+
+        <div class="notes-list">
+          <article class="note-card reveal" id="rip-current">
+            <p class="note-type">Computer vision · Field note</p>
+            <h2>Designing rip current detection for rescue workflows.</h2>
+            <p class="note-lead">A useful safety system is not defined by a strong demo alone. It has to support a
+              person making a time-sensitive decision in changing conditions.</p>
+            <div class="note-meta"><span>Computer Vision</span><span>System Design</span><span>Safety</span></div>
+            <h3>Start with the decision</h3>
+            <p>The first question is not which model to train. It is what a lifeguard or beach team needs to know,
+              how early they need to know it, and what evidence helps them trust the alert. Those constraints shape
+              the data, latency targets, interface, and acceptable failure modes.</p>
+            <h3>Measure the whole loop</h3>
+            <p>Model precision matters, but so do camera movement, glare, weather, deployment hardware, and how an
+              alert is presented. Testing the full workflow exposes weak assumptions much earlier than optimizing a
+              single metric in isolation.</p>
+            <a class="text-link" href="https://github.com/vinhhbui/rip-uav" target="_blank"
+              rel="noreferrer">Explore the related repository</a>
+          </article>
+
+          <article class="note-card reveal" id="yolo-experiments">
+            <p class="note-type">Technical note · Experiment design</p>
+            <h2>Making model experiments easier to trust.</h2>
+            <p class="note-lead">Faster experiments only help when their results are comparable and their mistakes are
+              visible.</p>
+            <div class="note-meta"><span>YOLO</span><span>Evaluation</span><span>Data Quality</span></div>
+            <h3>Keep the question small</h3>
+            <p>Each run should answer one question: whether an augmentation helps, whether a class is underrepresented,
+              or whether a smaller model meets the latency target. Changing several variables at once makes a good
+              result difficult to explain and difficult to reproduce.</p>
+            <h3>Inspect failure patterns</h3>
+            <p>An aggregate score can hide important errors. Grouping failures by lighting, scale, occlusion, or scene
+              type turns evaluation into a guide for the next experiment rather than a final grade.</p>
+            <a class="text-link" href="https://github.com/vinhhbui/sign-traffic-detect" target="_blank"
+              rel="noreferrer">Explore the related repository</a>
+          </article>
+
+          <article class="note-card reveal" id="ai-interfaces">
+            <p class="note-type">Product reflection · AI interfaces</p>
+            <h2>The interface is where machine learning becomes useful.</h2>
+            <p class="note-lead">People experience an AI system through feedback, control, and clarity rather than
+              through its architecture.</p>
+            <div class="note-meta"><span>Product Thinking</span><span>Web</span><span>Human Factors</span></div>
+            <h3>Show what the system knows</h3>
+            <p>A good interface makes uncertainty understandable without overwhelming the user. Clear states,
+              meaningful labels, and recoverable actions help people judge when to trust a result and when to
+              intervene.</p>
+            <h3>Design the fallback</h3>
+            <p>AI features should remain useful when the camera is unavailable, a prediction is weak, or the network
+              is slow. Fallback behavior is part of the product, not an edge case added after the model works.</p>
+            <a class="text-link" href="https://github.com/vinhhbui/FaceFeel" target="_blank"
+              rel="noreferrer">Explore the related repository</a>
+          </article>
+
+          <article class="note-card reveal" id="learning-notes">
+            <p class="note-type">Learning log · Practice</p>
+            <h2>Writing notes that make the next project faster.</h2>
+            <p class="note-lead">A useful learning note is a small bridge back into the problem, not a diary entry.</p>
+            <div class="note-meta"><span>Learning</span><span>Documentation</span><span>Iteration</span></div>
+            <h3>Record decisions, not transcripts</h3>
+            <p>The most valuable details are the original assumption, the evidence that changed it, and the next test.
+              This structure preserves reasoning while keeping the note easy to scan months later.</p>
+            <h3>Leave a restart point</h3>
+            <p>A short list of unresolved questions, useful commands, and known failure cases lowers the cost of
+              returning to a project. It also makes collaboration easier because another person can see the current
+              state without reconstructing every step.</p>
+            <a class="text-link" href="projects.html">Browse the project archive</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="container">
+        <div class="contact-card reveal">
+          <h2>Want to compare notes? <span>Let's talk.</span></h2>
+          <div class="contact-row">
+            <div class="contact-links">
+              <a href="mailto:buiquangvinh.work@gmail.com">Email</a>
+              <a href="https://www.linkedin.com/in/vinhh-bui/" target="_blank" rel="noreferrer">LinkedIn</a>
+              <a href="https://github.com/vinhhbui" target="_blank" rel="noreferrer">GitHub</a>
+            </div>
+            <p class="footer-note">Victor Bui · <span data-current-year></span></p>
+          </div>
+          <p class="privacy-note">Only professional contact channels are published on this website.</p>
+        </div>
+      </div>
+    </section>
   </main>
-
-  <footer>
-    <div class="container">&copy; 2026 Victor Bui. AI/ML Journal &amp; Portfolio.</div>
-  </footer>
-
-  <button class="to-top" type="button" id="toTopButton" aria-label="Back to top">
-    <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20" fill="none">
-      <path d="m6 14 6-6 6 6" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" />
-    </svg>
-  </button>
-
-  <script>
-    const root = document.documentElement;
-    const themeToggle = document.getElementById("themeToggle");
-    const menuToggle = document.getElementById("menuToggle");
-    const navLinks = document.getElementById("navLinks");
-    const navAnchors = document.querySelectorAll(".nav-links a");
-    const readingProgress = document.getElementById("readingProgress");
-    const toTopButton = document.getElementById("toTopButton");
-    const articleSearch = document.getElementById("articleSearch");
-    const searchStatus = document.getElementById("searchStatus");
-    const articles = [...document.querySelectorAll("main article[id]")];
-    const tocLinks = [...document.querySelectorAll(".toc a")];
-    const storedTheme = localStorage.getItem("theme");
-    const preferredTheme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
-
-    function setMenuOpen(isOpen) {
-      navLinks.classList.toggle("open", isOpen);
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
-      menuToggle.setAttribute("aria-label", isOpen ? "Close navigation menu" : "Open navigation menu");
-      document.body.classList.toggle("menu-open", isOpen);
-    }
-
-    function setTheme(theme) {
-      root.dataset.theme = theme;
-      localStorage.setItem("theme", theme);
-      themeToggle.setAttribute("aria-label", theme === "dark" ? "Switch to light theme" : "Switch to dark theme");
-    }
-
-    setTheme(storedTheme || preferredTheme);
-
-    themeToggle.addEventListener("click", () => {
-      setTheme(root.dataset.theme === "dark" ? "light" : "dark");
-    });
-
-    window.addEventListener("storage", (event) => {
-      if (event.key === "theme" && (event.newValue === "light" || event.newValue === "dark")) {
-        root.dataset.theme = event.newValue;
-        themeToggle.setAttribute("aria-label", event.newValue === "dark" ? "Switch to light theme" : "Switch to dark theme");
-      }
-    });
-
-    menuToggle.addEventListener("click", () => {
-      setMenuOpen(!navLinks.classList.contains("open"));
-    });
-
-    navAnchors.forEach((anchor) => {
-      anchor.addEventListener("click", () => setMenuOpen(false));
-    });
-
-    document.addEventListener("click", (event) => {
-      if (!navLinks.classList.contains("open")) return;
-      if (navLinks.contains(event.target) || menuToggle.contains(event.target)) return;
-
-      setMenuOpen(false);
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key !== "Escape") return;
-      setMenuOpen(false);
-    });
-
-    function normalizeText(text) {
-      return text.toLowerCase().trim();
-    }
-
-    let matchingArticles = [...articles];
-    let activeArticleId = window.location.hash.slice(1);
-
-    function showArticle(id, { updateHash = true, scroll = false } = {}) {
-      const target = matchingArticles.find((article) => article.id === id) || matchingArticles[0];
-
-      articles.forEach((article) => {
-        article.hidden = !target || article !== target;
-      });
-
-      tocLinks.forEach((link) => {
-        const isActive = Boolean(target) && link.getAttribute("href") === `#${target.id}`;
-        link.classList.toggle("active", isActive);
-        link.setAttribute("aria-selected", String(isActive));
-        link.tabIndex = isActive ? 0 : -1;
-      });
-
-      activeArticleId = target?.id || "";
-      if (target && updateHash) history.pushState(null, "", `#${target.id}`);
-      if (target && scroll) target.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-
-    function filterArticles() {
-      const query = normalizeText(articleSearch.value);
-      matchingArticles = articles.filter((article) => {
-        const text = normalizeText(`${article.dataset.keywords || ""} ${article.textContent || ""}`);
-        return !query || text.includes(query);
-      });
-
-      articles.forEach((article) => {
-        const tocLink = tocLinks.find((link) => link.getAttribute("href") === `#${article.id}`);
-        if (tocLink) tocLink.hidden = !matchingArticles.includes(article);
-      });
-
-      const visibleCount = matchingArticles.length;
-      searchStatus.textContent = query
-        ? `${visibleCount} article${visibleCount === 1 ? "" : "s"} found for "${query}".`
-        : "Choose a note above to read its full content.";
-
-      showArticle(activeArticleId, { updateHash: false });
-    }
-
-    articleSearch.addEventListener("input", filterArticles);
-
-    tocLinks.forEach((link) => {
-      link.addEventListener("click", (event) => {
-        event.preventDefault();
-        showArticle(link.getAttribute("href").slice(1), { scroll: true });
-      });
-      link.addEventListener("keydown", (event) => {
-        if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) return;
-        event.preventDefault();
-        const visibleTabs = tocLinks.filter((tab) => !tab.hidden);
-        const currentIndex = visibleTabs.indexOf(link);
-        const direction = event.key === 'ArrowRight' || event.key === 'ArrowDown' ? 1 : -1;
-        const nextTab = visibleTabs[(currentIndex + direction + visibleTabs.length) % visibleTabs.length];
-        nextTab?.focus();
-        if (nextTab) showArticle(nextTab.getAttribute("href").slice(1));
-      });
-    });
-
-    window.addEventListener("hashchange", () => {
-      const requestedId = window.location.hash.slice(1);
-      if (!articles.some((article) => article.id === requestedId)) return;
-      articleSearch.value = "";
-      activeArticleId = requestedId;
-      filterArticles();
-    });
-
-    function updateScrollUi() {
-      const maxScrollable = document.body.scrollHeight - window.innerHeight;
-      const progress = maxScrollable > 0 ? Math.min(100, (window.scrollY / maxScrollable) * 100) : 0;
-
-      readingProgress.style.width = `${progress}%`;
-      toTopButton.classList.toggle("show", window.scrollY > 360);
-    }
-
-    window.addEventListener("scroll", updateScrollUi, { passive: true });
-    window.addEventListener("resize", () => {
-      updateScrollUi();
-
-      if (window.innerWidth > 760 && navLinks.classList.contains("open")) {
-        setMenuOpen(false);
-      }
-    });
-
-    toTopButton.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-
-    const requestedArticle = articles.find((article) => article.id === window.location.hash.slice(1));
-    filterArticles();
-    if (requestedArticle) requestAnimationFrame(() => requestedArticle.scrollIntoView({ block: "start" }));
-    updateScrollUi();
-  </script>
 </body>
 
 </html>
